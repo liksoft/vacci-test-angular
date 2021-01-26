@@ -6,7 +6,6 @@ import { partialConfigs, adminPermissions } from './lib/views/partials/partials-
 const routes: Routes = [
   {
     path: '',
-    canActivate: [],
     redirectTo: '/dashboard',
     pathMatch: 'full'
   },

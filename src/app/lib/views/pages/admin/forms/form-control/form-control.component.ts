@@ -59,6 +59,7 @@ export class FormControlComponent extends AbstractAlertableComponent {
     }
   }
   @Input() isExpanded: boolean = false;
+  @Input() index: number;
 
   /**
    * @description Component object instance initializer

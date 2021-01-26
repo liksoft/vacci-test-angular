@@ -41,7 +41,9 @@ import { doLog } from 'src/app/lib/core/rxjs/operators';
 import { AppUIStateProvider } from '../../../../core/helpers/app-ui-store-manager.service';
 import { sortFormFormControlsByIndex } from '../../../../core/components/dynamic-inputs/core';
 import { STATIC_FORMS } from '../../../../core/components/dynamic-inputs/core';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { DynamicFormControlInterface } from '../../../../core/components/dynamic-inputs/core/compact/types';
+import { Log } from '../../../../core/utils/logger';
 
 
 @Component({
@@ -50,14 +52,30 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
   styles: [
     `
     .alter-container {
-    margin-bottom: 16px;
+      margin-bottom: 16px;
     }
 
     .fields-container {
       background: #f1f1f1;
-      padding: 1rem!important;
       border: 2px dashed #999;
       min-height: 480px;
+      position: relative;
+    }
+    .field-content {
+      padding: 1rem!important;
+    }
+    .loader-container {
+      position: absolute;
+      min-height: 400px;
+      height: 100%;
+      background: rgba(255, 255, 255, .9);
+      width: 100%;
+    }
+    .loader-container .spinner {
+      margin: auto;
+      position: absolute;
+      top: 0; left: 0; bottom: 0; right: 0;
+      display: block;
     }
     .form-view-container {
       padding-top: 1rem;
@@ -67,28 +85,16 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
         font-weight: 400;
     }
     .example-list {
-      width: 500px;
+      width: 100% !important;
       max-width: 100%;
-      border: solid 1px #ccc;
       min-height: 60px;
       display: block;
-      background: white;
-      border-radius: 4px;
-      overflow: hidden;
     }
 
     .example-box {
-      padding: 20px 10px;
-      border-bottom: solid 1px #ccc;
       color: rgba(0, 0, 0, 0.87);
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
       box-sizing: border-box;
       cursor: move;
-      background: white;
-      font-size: 14px;
     }
 
     .cdk-drag-preview {
@@ -124,8 +130,8 @@ export class FormsComponent implements OnDestroy {
   appFormControlAddComponent: FormControlAddComponent;
   public showFormControlCreateModal: boolean;
 
-  @Input() formViewContainerClass = 'clr-col-lg-4 clr-col-md-12 clr-col-sm-12';
-  @Input() formControlsContainerClass = 'clr-col-lg-8 clr-col-md-12 clr-col-sm-12';
+  @Input() formViewContainerClass = 'clr-col-lg-5 clr-col-md-12 clr-col-sm-12';
+  @Input() formControlsContainerClass = 'clr-col-lg-7 clr-col-md-12 clr-col-sm-12';
 
   // tslint:disable-next-line: variable-name
   _currentForm$ = createSubject<DynamicFormInterface>();
@@ -369,8 +375,24 @@ export class FormsComponent implements OnDestroy {
     }
   }
 
-  controlComponentDropped(event: CdkDragDrop<string[]>) {
+  controlComponentDropped(form: DynamicFormInterface, event: CdkDragDrop<string[]>) {
+    // const controls = form.formControls;
+    Log('Indexes: ', event.previousIndex, event.currentIndex, event.item);
+  }
 
+  onControlDropped(event: CdkDragDrop<any>, control: DynamicFormControlInterface) {
+    if (!(event.previousIndex === event.currentIndex)) {
+      updateFormControlAction(this.formsProvider.store$)(
+        this.client,
+        `${this.formControlServerPath}/${control.id}`,
+        {
+          form_form_controls: serializeFormFormControlRequestBodyUsing({
+            form_id: control.formId,
+            index: event.currentIndex + 1
+          })
+        }
+      );
+    }
   }
 
 

@@ -23,20 +23,28 @@
               </div>
               <div [class]="formControlsContainerClass">
                 <div class="fields-container">
-                  <div class="field-title section-title">
-                    Champs du formulaire
+                  <div class="loader-container" [hidden]="!vm?.performingAction">
+                    <clr-spinner class="spinner" [clrMedium]="true"></clr-spinner>
                   </div>
-                  <ng-container *ngIf="vm?.formState?.model?.formControls?.length > 0">
-                    <!-- <div class="example-list" (cdkDropListDropped)="controlComponentDropped($event)"></div> -->
-                    <div *ngFor="let item of sortControlsByIndex()(vm?.formState?.model)?.formControls">
-                      <!-- Review isExpanded bindings-->
-                      <app-form-control *ngIf="vm?.controlState?.form" [title]="item.label" [badge]="item.controlIndex"
-                        [control]="item" [controlViewState]="vm?.controlState" [isExpanded]="true"
-                        (formSubmitted)="updateOrCreateControl({event: $event, form: vm?.formState?.model})"
-                        (dissociateFormControl)="onDissociateFormControl({control: $event, form: vm?.formState?.model})">
-                      </app-form-control>
+                  <div class="field-content">
+                    <div class="field-title section-title">
+                      Champs du formulaire
                     </div>
-                  </ng-container>
+                    <ng-container *ngIf="vm?.formState?.model?.formControls?.length > 0">
+                      <div cdkDropList class="example-list"
+                        (cdkDropListDropped)="controlComponentDropped(vm?.formState?.model, $event)">
+                        <div *ngFor="let item of sortControlsByIndex()(vm?.formState?.model)?.formControls">
+                          <!-- Review isExpanded bindings-->
+                          <app-form-control (cdkDragDropped)="onControlDropped($event, item)" class="example-box"
+                            cdkDrag *ngIf="vm?.controlState?.form" [title]="item.label" [badge]="item.controlIndex"
+                            [control]="item" [controlViewState]="vm?.controlState" [isExpanded]="false"
+                            (formSubmitted)="updateOrCreateControl({event: $event, form: vm?.formState?.model})"
+                            (dissociateFormControl)="onDissociateFormControl({control: $event, form: vm?.formState?.model})">
+                          </app-form-control>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
                 </div>
               </div>
               <ng-container *ngIf="(vm?.performingAction) && !typeHelper.isDefined(vm?.formState.form)">
