@@ -217,7 +217,8 @@ export class FormsComponent implements OnDestroy {
       'successfulRequest',
       'prompt',
       'forms.createControlSuccess',
-      'forms.deleteControlSuccess'
+      'forms.deleteControlSuccess',
+      'forms.updateControlSuccess'
     ])
   ]).pipe(
     tap(([forms, translations]) => {

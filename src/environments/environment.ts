@@ -11,12 +11,11 @@ export const environment = {
   authTokenStorageKey: 'ELEWOU_ADMIN_X_AUTH_TOKEN',
   authRememberTokenStorageKey: 'ELEWOU_ADMIN_AUTH_REMEMBER_TOKEN',
   forms: {
-    roles: 13,
-    permissions: 2,
-    identification_employeur: 2,
-    users: 14,
-    departments: 18,
-    modules: 15
+    roles: null,
+    permissions: null,
+    users: null,
+    departments: null,
+    modules: null
   },
   APP_SERVER_URL: 'http://127.0.0.1:8000/api/',
   APP_FILE_SERVER_URL: 'http://127.0.0.1:8000/api/',
