@@ -1,0 +1,5 @@
+<app-ui-notification></app-ui-notification>
+<app-progress-bar [indeterminate]="true" [overlay]="true"></app-progress-bar>
+<app-components-loading *ngIf="showComponentLoadingDirective" (isAuthenticated)="onIsAuthenticated($event)">
+</app-components-loading>
+<router-outlet></router-outlet>

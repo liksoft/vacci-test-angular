@@ -1,0 +1,190 @@
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { ComponentReactiveFormHelpers, DynamicFormHelpers } from 'src/app/lib/core/helpers/component-reactive-form-helpers';
+import { DynamicControlParser } from 'src/app/lib/core/helpers/dynamic-control-parser';
+import { TypeUtilHelper } from 'src/app/lib/core/helpers/type-utils-helper';
+import { isDefined } from 'src/app/lib/core/utils';
+import { RolesProvider } from '../../../../../core/auth/core/providers/role';
+import { DrewlabsRessourceServerClient } from '../../../../../core/http/core/ressource-server-client';
+import { map, tap, takeUntil, filter, mergeMap, withLatestFrom } from 'rxjs/operators';
+import { FormsProvider } from '../../../../../core/components/dynamic-inputs/core/v2/providers/form';
+import { environment } from 'src/environments/environment';
+import { getRoleUsingID, resetRolesCacheAction, roleCreatedAction, roleUpdatedAction } from 'src/app/lib/core/auth/core/actions/roles';
+import { backendRoutePaths } from '../../../../partials/partials-configs';
+import { createStateful, createSubject } from '../../../../../core/rxjs/helpers';
+import { TranslationService } from '../../../../../core/translator';
+import { createRoleAction, updateRoleAction } from '../../../../../core/auth/core/actions/roles';
+import { combineLatest, from } from 'rxjs';
+import { loadFormUsingIDAction } from '../../../../../core/components/dynamic-inputs/core/v2/actions/form';
+import { onErrorAction } from '../../../../../core/rxjs/state/rx-state';
+import { AppUIStateProvider, UIStateStatusCode } from '../../../../../core/helpers';
+import { sortFormByIndex } from '../../../../../core/components/dynamic-inputs/core/helpers';
+import { doLog } from '../../../../../core/rxjs/operators';
+import { DynamicFormInterface } from 'src/app/lib/core/components/dynamic-inputs/core/compact';
+
+@Component({
+  selector: 'app-add-role',
+  templateUrl: './add-role.component.html',
+  styles: []
+})
+export class AddRoleComponent implements OnInit, OnDestroy {
+
+  // tslint:disable-next-line: variable-name
+  private _destroy$ = createSubject();
+  // Translation values loaded from the translation sources
+  translations$ = this.translate.translate([
+    'invalidRequestParams',
+    'serverRequestFailed',
+    'successfulRequest'
+  ]).pipe(
+    doLog('Translation values '),
+    takeUntil(this._destroy$),
+    map(state => state)
+  );
+  // tslint:disable-next-line: variable-name
+  _buildComponentForm$ = createStateful<{ form: DynamicFormInterface, selectedID: number | string }>(null);
+  componentFormState$ = this._buildComponentForm$.pipe(
+    doLog('Add role Form state: '),
+    filter(source => isDefined(source)),
+    mergeMap(state => from(DynamicFormHelpers.buildDynamicForm(state.form, this.translate)).pipe(
+      map(form => {
+        const formgroup = this.controlParser.buildFormGroupFromDynamicForm(
+          form,
+          !this.typeHelper.isDefined(state.selectedID)
+        ) as FormGroup;
+        return { form: sortFormByIndex(form), formgroup, selectedID: state.selectedID };
+      })
+    )),
+    tap(() => this.uiState.endAction())
+  );
+  // tslint:disable-next-line: variable-name
+  _formState$ = this.forms.state$.pipe(
+    map(
+      state => (state.collections ? Object.values(state.collections.items || {}) : []).find(
+        (form) => +(form.id) === environment.forms.roles)
+    ),
+    withLatestFrom(this.route.paramMap.pipe(
+      takeUntil(this._destroy$),
+      map(params => {
+        if (params.has('id')) {
+          getRoleUsingID(this.roles.store$)(this.client, backendRoutePaths.roles, params.get('id'));
+        }
+        return params.get('id');
+      })
+    )),
+    doLog('Form with selected role id: '),
+    // tslint:disable-next-line: variable-name
+    map(([state, role_id]) => ({
+      state,
+      role_id
+    })),
+    filter(source => isDefined(source.state)),
+    tap(source => {
+      const previousComponentFormGroup = this._buildComponentForm$.getValue();
+      if (!isDefined(previousComponentFormGroup)) {
+        this._buildComponentForm$.next({ form: source.state, selectedID: source.role_id });
+      }
+    }));
+  rolesState$ = this.roles.state$.pipe(
+    doLog('Roles state loaded: '),
+    tap(state => {
+      if (state.performingAction) {
+        this.uiState.startAction();
+      }
+    }));
+  // Component view state
+  state$ = combineLatest([
+    this.componentFormState$,
+    this.rolesState$,
+    this.translations$,
+    this.uiState.uiState,
+  ]).pipe(
+    map(([formState, state, translations, uiState]) => ({
+      ...formState,
+      createdRole: state.createdRole,
+      performingAction: uiState.performingAction,
+      updateResult: state.updateResult,
+      translations
+    })),
+    map(state => {
+      if (state.createdRole) {
+        this.uiState.endAction(state.translations.successfulRequest, UIStateStatusCode.STATUS_CREATED);
+        if (this.typeHelper.isDefined(state.formgroup)) {
+          state.formgroup.reset();
+        }
+        // Makes the createdRole null after the user was notified
+        setTimeout(() => {
+          roleCreatedAction(this.roles.store$)(null);
+          this.uiState.endAction();
+        }, 1000);
+      }
+
+      if (state.updateResult === true) {
+        this.uiState.endAction(state.translations.successfulRequest, UIStateStatusCode.STATUS_OK);
+        // Makes the createdRole null after the user was notified
+        setTimeout(() => {
+          roleUpdatedAction(this.roles.store$)(null);
+          this.uiState.endAction();
+        }, 1000);
+      }
+      // handle Error cases
+      return { ...state };
+    })
+  );
+
+
+  constructor(
+    private uiState: AppUIStateProvider,
+    private route: ActivatedRoute,
+    private controlParser: DynamicControlParser,
+    public readonly typeHelper: TypeUtilHelper,
+    public roles: RolesProvider,
+    public forms: FormsProvider,
+    public client: DrewlabsRessourceServerClient,
+    private translate: TranslationService
+  ) {
+    this.uiState.startAction();
+    this._formState$.pipe(
+      takeUntil(this._destroy$))
+      .subscribe();
+  }
+
+  ngOnInit() {
+    loadFormUsingIDAction(this.forms.store$)(this.client, 'forms', environment.forms.roles);
+  }
+
+  onNavigateBack(): void { }
+
+  onFormSubmittedEvent({ formgroup, url, selected }: { formgroup: FormGroup, url: string, selected?: number | string }) {
+    if (isDefined(selected)) {
+      return this.onEditFormSumit(formgroup, url, selected);
+    }
+    return this.onFormSubmit(formgroup, url);
+  }
+
+  async onFormSubmit(formgroup: FormGroup, url: string) {
+    ComponentReactiveFormHelpers.validateFormGroupFields(
+      formgroup
+    );
+    if (formgroup.valid) {
+      createRoleAction(this.roles.store$)(this.client, url, formgroup.getRawValue());
+    }
+  }
+
+  async onEditFormSumit(formgroup: FormGroup, url: string, id: number | string) {
+    ComponentReactiveFormHelpers.validateFormGroupFields(
+      formgroup
+    );
+    if (formgroup.valid) {
+      const requestBody = Object.assign(formgroup.getRawValue());
+      updateRoleAction(this.roles.store$)(this.client, url, id, requestBody);
+    }
+  }
+
+  ngOnDestroy(): void {
+    this._destroy$.next();
+    onErrorAction(this.roles.store$)(null);
+    resetRolesCacheAction(this.roles.store$)();
+  }
+}

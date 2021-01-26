@@ -1,0 +1,15 @@
+p.page-description {
+  font-size: .7rem;
+}
+h6 {
+  margin-bottom: .8rem;
+}
+.dashboard-preview {
+  padding: 2.2rem 3.2rem !important;
+}
+
+@media(max-width: 768px) {
+  .dashboard-preview {
+    padding: 1rem !important;
+  }
+}

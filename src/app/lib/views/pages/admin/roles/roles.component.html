@@ -1,0 +1,57 @@
+<div class="app-page-header clr-row">
+  <div class="clr-col-sm-12">
+    <div class="card">
+      <div class="card-header">
+        <h2>Autorisations & Groupes d'autorisations</h2>
+        <div class="app-intro">
+          <span>Créer des rôles repondant à des besoins spécifiques et permettant de gérer des utilisateurs
+            spécifiques de votre système.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clr-row app-content-container">
+  <div class="clr-col-12">
+    <clr-tabs>
+      <clr-tab>
+        <button clrTabLink id="link1">Groupes d'autorisations</button>
+        <clr-tab-content id="content1" *clrIfActive>
+          <div class="clr-row" *ngIf="state$ | async as vm">
+            <div class="clr-col-12">
+              <div class="card">
+                <div class="card-block">
+                  <div class="card-text">
+                    <app-role-list (selectedItem)="onRoleSelected($event)" (create)="onCreateAuthorizationGroup()">
+                    </app-role-list>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <button class="btn btn-link" [routerLink]="dashboardHomeRoute"
+                    [disabled]="vm?.performingAction">Retour
+                    au
+                    tableau de bord
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </clr-tab-content>
+      </clr-tab>
+      <clr-tab *ngIf="false">
+        <button clrTabLink>Permissions</button>
+        <clr-tab-content *clrIfActive="false">
+          <div class="clr-row">
+            <div class="clr-col-12">
+              <div class="card">
+                <div class="card-block">
+                  <app-permission-list></app-permission-list>
+                </div>
+              </div>
+            </div>
+          </div>
+        </clr-tab-content>
+      </clr-tab>
+    </clr-tabs>
+  </div>
+</div>
