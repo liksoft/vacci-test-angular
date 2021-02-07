@@ -11,7 +11,8 @@ export const environment = {
     permissions: null,
     users: null,
     departments: null,
-    modules: null
+    modules: null,
+    globalConfigurationForm: null
   },
   APP_SERVER_URL: 'https://192.168.2.237:8100/api/',
   APP_FILE_SERVER_URL: 'https://192.168.2.237:8100/api/',

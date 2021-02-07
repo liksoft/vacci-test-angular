@@ -6,6 +6,8 @@ import { Location } from '@angular/common';
 import 'moment/locale/fr';
 import 'moment/locale/en-gb';
 import * as lodash from 'lodash';
+import { AppUIStateProvider } from './lib/core/helpers';
+import { doLog } from './lib/core/rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -16,10 +18,15 @@ export class AppComponent implements AfterViewInit {
   title = 'Elewou Administration';
   showComponentLoadingDirective = true;
 
+  uiState$ = this.uiState.uiState.pipe(
+    doLog('Application Global UI State: ')
+  );
+
   constructor(
     private translate: TranslationService,
     private router: Router,
-    private location: Location
+    private location: Location,
+    private uiState: AppUIStateProvider
   ) {
     this.translate.provider.addLangs(['en', 'fr']);
     const browserLang = this.translate.provider.getBrowserLang();
@@ -42,5 +49,9 @@ export class AppComponent implements AfterViewInit {
       }
     }, 0);
     this.showComponentLoadingDirective = false;
+  }
+
+  onEndActionEvent({status, message}: {status: number, message: string}) {
+    this.uiState.endAction(message, status);
   }
 }

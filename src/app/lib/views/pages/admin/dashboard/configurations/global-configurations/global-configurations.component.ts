@@ -10,7 +10,7 @@ import { TranslationService } from 'src/app/lib/core/translator';
 import { filter } from 'rxjs/operators';
 import { GlobalConfigurationsListComponent } from './global-configurations-list/global-configurations-list.component';
 import { backendRoutePaths } from '../../../../../partials/partials-configs';
-import { adminModuleForms } from '../../../../../partials/modules-forms';
+import { environment } from '../../../../../../../../environments/environment.prod';
 
 @Component({
   selector: 'app-global-configurations',
@@ -32,7 +32,7 @@ import { adminModuleForms } from '../../../../../partials/modules-forms';
 export class GlobalConfigurationsComponent extends AbstractAlertableComponent implements OnInit, OnDestroy {
 
   public ressourcesPath: string = backendRoutePaths.globalConfigurationsPath;
-  public formID: number = adminModuleForms.globalConfigurationForm;
+  public formID: number = environment.forms.globalConfigurationForm;
   // tslint:disable-next-line: no-inferrable-types
   public formTitle: string = 'Chargement en cours, veuillez patienter...';
   public selectedConfigs: AppConfigs;
