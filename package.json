@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start:aot": "ng serve --aot --port 22000",
-    "start": "ng serve --aot --port 22000",
-    "build:prod": "ng build --aot --build-optimizer --prod",
+    "start:aot": "ng serve --port 22000",
+    "start": "ng serve --port 22000",
+    "build:prod": "ng build --build-optimizer --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

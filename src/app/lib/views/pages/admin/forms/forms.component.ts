@@ -41,9 +41,8 @@ import { doLog } from 'src/app/lib/core/rxjs/operators';
 import { AppUIStateProvider } from '../../../../core/helpers/app-ui-store-manager.service';
 import { sortFormFormControlsByIndex } from '../../../../core/components/dynamic-inputs/core';
 import { STATIC_FORMS } from '../../../../core/components/dynamic-inputs/core';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { DynamicFormControlInterface } from '../../../../core/components/dynamic-inputs/core/compact/types';
-import { Log } from '../../../../core/utils/logger';
 
 
 @Component({
@@ -377,8 +376,7 @@ export class FormsComponent implements OnDestroy {
   }
 
   controlComponentDropped(form: DynamicFormInterface, event: CdkDragDrop<string[]>) {
-    // const controls = form.formControls;
-    Log('Indexes: ', event.previousIndex, event.currentIndex, event.item);
+    // Log('Indexes: ', event.previousIndex, event.currentIndex, event.item);
   }
 
   onControlDropped(event: CdkDragDrop<any>, control: DynamicFormControlInterface) {
