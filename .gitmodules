@@ -8,3 +8,6 @@
 [submodule "src/app/lib/views/partials"]
 	path = src/app/lib/views/partials
 	url = git@github.com:azandrew-sidoine/elewou-clarity-partial-components.git
+[submodule "src/app/lib/views/global-styles"]
+	path = src/app/lib/views/global-styles
+	url = git@github.com:liksoft/elewou-light-styles.git
