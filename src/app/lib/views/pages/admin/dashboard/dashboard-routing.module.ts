@@ -32,7 +32,7 @@ import {
 import {
   partialConfigs,
   adminPath,
-  adminPermissions
+  adminAuthorizations
 } from '../../../partials/partials-configs';
 import { HttpRequestService } from 'src/app/lib/core/http/core';
 import { SessionStorage } from 'src/app/lib/core/storage/core';
@@ -70,7 +70,7 @@ export const getRoutes = () => {
       redirectTo: partialConfigs.routes.commonRoutes.homeRoute,
       canActivate: [AuthGuardService, AuthorizationsGuard],
       data: {
-        authorizations: adminPermissions
+        authorizations: adminAuthorizations
       }
     },
     {
@@ -78,7 +78,7 @@ export const getRoutes = () => {
       component: AdminDashboardHomeComponent,
       canActivate: [AuthGuardService, AuthorizationsGuard],
       data: {
-        authorizations: adminPermissions
+        authorizations: adminAuthorizations
       }
     }, // account component route
     {
@@ -86,7 +86,7 @@ export const getRoutes = () => {
       component: SettingsComponent,
       canActivate: [AuthGuardService, AuthorizationsGuard],
       data: {
-        authorizations: adminPermissions
+        authorizations: adminAuthorizations
       }
     },
     {
@@ -94,7 +94,7 @@ export const getRoutes = () => {
       component: ConfigurationsComponent,
       canActivate: [AuthGuardService, AuthorizationsGuard],
       data: {
-        authorizations: adminPermissions
+        authorizations: adminAuthorizations
       }
     },
     {
@@ -102,7 +102,7 @@ export const getRoutes = () => {
       component: UsersComponent,
       canActivate: [AuthGuardService, AuthorizationsGuard],
       data: {
-        authorizations: adminPermissions
+        authorizations: adminAuthorizations
       }
     },
     {
@@ -110,7 +110,7 @@ export const getRoutes = () => {
       component: AddUserComponent,
       canActivate: [AuthGuardService, AuthorizationsGuard],
       data: {
-        authorizations: adminPermissions
+        authorizations: adminAuthorizations
       }
     },
     {
@@ -118,7 +118,7 @@ export const getRoutes = () => {
       component: AddUserComponent,
       canActivate: [AuthGuardService, AuthorizationsGuard],
       data: {
-        authorizations: adminPermissions
+        authorizations: adminAuthorizations
       }
     },
     {
@@ -126,7 +126,7 @@ export const getRoutes = () => {
       component: UserListComponent,
       canActivate: [AuthGuardService, AuthorizationsGuard],
       data: {
-        authorizations: adminPermissions
+        authorizations: adminAuthorizations
       }
     },
     {
@@ -134,7 +134,7 @@ export const getRoutes = () => {
       component: RolesComponent,
       canActivate: [AuthGuardService, AuthorizationsGuard],
       data: {
-        authorizations: adminPermissions
+        authorizations: adminAuthorizations
       }
     },
     {
@@ -142,7 +142,7 @@ export const getRoutes = () => {
       component: AddRoleComponent,
       canActivate: [AuthGuardService, AuthorizationsGuard],
       data: {
-        authorizations: adminPermissions
+        authorizations: adminAuthorizations
       }
     },
     {
@@ -150,7 +150,7 @@ export const getRoutes = () => {
       component: AddRoleComponent,
       canActivate: [AuthGuardService, AuthorizationsGuard],
       data: {
-        authorizations: adminPermissions
+        authorizations: adminAuthorizations
       }
     }
   ];
@@ -161,7 +161,7 @@ export const getRoutes = () => {
         component: ListDepartmentComponent,
         canActivate: [AuthGuardService, AuthorizationsGuard],
         data: {
-          authorizations: adminPermissions
+          authorizations: adminAuthorizations
         }
       },
       {
@@ -169,7 +169,7 @@ export const getRoutes = () => {
         component: DepartmentComponent,
         canActivate: [AuthGuardService, AuthorizationsGuard],
         data: {
-          authorizations: adminPermissions
+          authorizations: adminAuthorizations
         }
       },
       {
@@ -177,7 +177,7 @@ export const getRoutes = () => {
         component: DepartmentComponent,
         canActivate: [AuthGuardService, AuthorizationsGuard],
         data: {
-          authorizations: adminPermissions
+          authorizations: adminAuthorizations
         }
       }
     ]);
@@ -191,7 +191,7 @@ export const getRoutes = () => {
           component: ModulesComponent,
           canActivate: [AuthGuardService, AuthorizationsGuard],
           data: {
-            authorizations: adminPermissions
+            authorizations: adminAuthorizations
           }
         },
         {
@@ -199,7 +199,7 @@ export const getRoutes = () => {
           component: AddmoduleComponent,
           canActivate: [AuthGuardService, AuthorizationsGuard],
           data: {
-            authorizations: adminPermissions
+            authorizations: adminAuthorizations
           }
         },
         {
@@ -207,7 +207,7 @@ export const getRoutes = () => {
           component: AddmoduleComponent,
           canActivate: [AuthGuardService, AuthorizationsGuard],
           data: {
-            authorizations: adminPermissions
+            authorizations: adminAuthorizations
           }
         },
       ]
@@ -222,7 +222,7 @@ export const getRoutes = () => {
           component: ListformsComponent,
           canActivate: [AuthGuardService, AuthorizationsGuard],
           data: {
-            authorizations: adminPermissions
+            authorizations: adminAuthorizations
           }
         },
         {
@@ -230,7 +230,7 @@ export const getRoutes = () => {
           component: FormsComponent,
           canActivate: [AuthGuardService, AuthorizationsGuard],
           data: {
-            authorizations: adminPermissions
+            authorizations: adminAuthorizations
           }
         },
         {
@@ -238,7 +238,7 @@ export const getRoutes = () => {
           component: FormsComponent,
           canActivate: [AuthGuardService, AuthorizationsGuard],
           data: {
-            authorizations: adminPermissions
+            authorizations: adminAuthorizations
           }
         },
       ]

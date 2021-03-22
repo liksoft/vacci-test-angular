@@ -22,7 +22,7 @@ export class AppNavComponent implements OnInit {
       navbar_modules_management_header: 'Gestion des modules',
       navbar_users_management_create: 'Ajouter un utilisateur',
       navbar_users_management_list: 'Gestion des utilisateurs',
-      navbar_roles_permissions: 'Roles & Authorizations',
+      navbar_roles_authorizations: 'Roles & Authorizations',
       navbar_forms_create: 'Créer un formulaire',
       navbar_forms_list: 'Gestion des formulaires',
       navbar_modules_list: 'Gestion des modules',
@@ -46,7 +46,7 @@ export class AppNavComponent implements OnInit {
             route: `/${defaultPath}/${adminPath.managementsRoute}/${adminPath.listUsersRoute}`
           },
           {
-            key: 'navbar_roles_permissions',
+            key: 'navbar_roles_authorizations',
             route: `/${defaultPath}/${adminPath.managementsRoute}/${adminPath.rolesManagementRoute}`
           }
         ]

@@ -8,8 +8,6 @@ import { TypeUtilHelper } from 'src/app/lib/core/helpers';
 import { createSubject } from 'src/app/lib/core/rxjs/helpers';
 import { doLog } from 'src/app/lib/core/rxjs/operators';
 import { isDefined } from 'src/app/lib/core/utils';
-import { Log } from 'src/app/lib/core/utils/logger';
-
 @Component({
   selector: 'app-add-role-form',
   template: `
@@ -79,8 +77,8 @@ export class AddRoleFormComponent implements OnDestroy {
     if (isDefined(state.id) && isDefined(formgroup)) {
       for (const [key, value] of Object.entries(roleFormViewBindings())) {
         if (isDefined(formgroup.get(key))) {
-          if (key === 'permissions' && isDefined(state.permissions)) {
-            formgroup.get(key).setValue(state.permissions.map((v: { [index: string]: any }) => v.id));
+          if (key === 'authorizations' && isDefined(state.authorizations)) {
+            formgroup.get(key).setValue(state.authorizations.map((v: { [index: string]: any }) => v.id));
             continue;
           }
           formgroup.get(key).setValue(state[value]);

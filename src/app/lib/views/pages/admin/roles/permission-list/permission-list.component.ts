@@ -30,7 +30,7 @@ export class PermissionListComponent extends AbstractAlertableComponent implemen
   }
 
   ngAfterViewInit() {
-    getAuthorizationAction(this.authorizations.store$)(this.client, backendRoutePaths.permissions);
+    getAuthorizationAction(this.authorizations.store$)(this.client, backendRoutePaths.authorizations);
   }
 
 }

@@ -12,7 +12,7 @@ export const environment = {
   authRememberTokenStorageKey: 'ELEWOU_ADMIN_AUTH_REMEMBER_TOKEN',
   forms: {
     roles: 13,
-    permissions: 2,
+    authorizations: 2,
     identification_employeur: 2,
     users: 14,
     departments: 18,
