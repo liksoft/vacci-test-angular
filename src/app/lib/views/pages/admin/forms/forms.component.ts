@@ -43,6 +43,7 @@ import { sortFormFormControlsByIndex } from '../../../../core/components/dynamic
 import { STATIC_FORMS } from '../../../../core/components/dynamic-inputs/core';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { DynamicFormControlInterface } from '../../../../core/components/dynamic-inputs/core/compact/types';
+import { httpServerHost } from 'src/app/lib/core/utils/url/url';
 
 
 @Component({
@@ -297,9 +298,10 @@ export class FormsComponent implements OnDestroy {
     private translate: TranslationService,
     private formsProvider: FormsProvider,
     private client: DrewlabsRessourceServerClient,
-    @Inject(FORM_RESOURCES_PATH) private formsServerPath: string,
-    @Inject(FORM_FORM_CONTROL_RESOURCES_PATH) private fornFormControlServerPath: string,
-    @Inject(FORM_CONTROL_RESOURCES_PATH) private formControlServerPath: string
+    @Inject(FORM_RESOURCES_PATH) private path: string,
+    @Inject(FORM_FORM_CONTROL_RESOURCES_PATH) private fFormControlsPath: string,
+    @Inject(FORM_CONTROL_RESOURCES_PATH) private formControlsPath: string,
+    @Inject('FORM_SERVER_HOST') private host: string,
   ) {
     this.showFormControlCreateModal = false;
     this.providersStateWithTranslations$.pipe(
@@ -309,11 +311,11 @@ export class FormsComponent implements OnDestroy {
 
   async onFormviewFormSubmitted(event: FormRequest) {
     this.uiState.startAction();
-    createFormAction(this.formsProvider.store$)(this.client, event.requestURL || this.formsServerPath, event.body);
+    createFormAction(this.formsProvider.store$)(this.client, `${httpServerHost(this.host)}/${event.requestURL || this.path}`, event.body);
   }
 
   onUpdateFormEvent(event: UpdateRequest) {
-    updateFormAction(this.formsProvider.store$)(this.client, `${event.requestURL || this.formsServerPath}/${event.id}`, event.body);
+    updateFormAction(this.formsProvider.store$)(this.client, `${httpServerHost(this.host)}/${event.requestURL || this.path}/${event.id}`, event.body);
   }
 
   async updateOrCreateControl({ event, form }: { event: FormRequest | UpdateRequest, form: DynamicFormInterface }) {
@@ -339,13 +341,13 @@ export class FormsComponent implements OnDestroy {
       if (this.typeHelper.isDefined((event as UpdateRequest).id)) {
         updateFormControlAction(this.formsProvider.store$)(
           this.client,
-          `${this.formControlServerPath}/${(event as UpdateRequest).id}`,
+          `${httpServerHost(this.host)}/${this.formControlsPath}/${(event as UpdateRequest).id}`,
           body
         );
       } else {
         createFormControlAction(this.formsProvider.store$)(
           this.client,
-          `${this.formControlServerPath}`,
+          `${httpServerHost(this.host)}/${this.formControlsPath}`,
           body
         );
       }
@@ -368,22 +370,20 @@ export class FormsComponent implements OnDestroy {
     if (this.dialog.confirm(translations.prompt)) {
       deleteFormFormControl(this.formsProvider.store$)(
         this.client,
-        `${this.fornFormControlServerPath}/${value.control.formId}/${value.control.id}`,
+        `${httpServerHost(this.host)}/${this.fFormControlsPath}/${value.control.formId}/${value.control.id}`,
         {},
         value.control.id
       );
     }
   }
 
-  controlComponentDropped(form: DynamicFormInterface, event: CdkDragDrop<string[]>) {
-    // Log('Indexes: ', event.previousIndex, event.currentIndex, event.item);
-  }
+  controlComponentDropped(form: DynamicFormInterface, event: CdkDragDrop<string[]>) {}
 
   onControlDropped(event: CdkDragDrop<any>, control: DynamicFormControlInterface) {
     if (!(event.previousIndex === event.currentIndex)) {
       updateFormControlAction(this.formsProvider.store$)(
         this.client,
-        `${this.formControlServerPath}/${control.id}`,
+        `${httpServerHost(this.host)}/${this.formControlsPath}/${control.id}`,
         {
           form_form_controls: serializeFormFormControlRequestBodyUsing({
             form_id: control.formId,

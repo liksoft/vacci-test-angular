@@ -14,7 +14,6 @@ import { createSubject } from 'src/app/lib/core/rxjs/helpers';
 import { combineLatest } from 'rxjs';
 import { UIStateStatusCode } from 'src/app/lib/core/helpers';
 import { AppUIStateProvider } from '../../../../../core/helpers/app-ui-store-manager.service';
-import { Log } from 'src/app/lib/core/utils/logger';
 
 @Component({
   selector: 'app-add-departement',

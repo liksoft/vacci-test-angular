@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { Component, Inject, OnDestroy, ViewChild } from '@angular/core';
 import { ClrDatagridStateInterface, ClrDatagrid } from '@clr/angular';
 import { Router } from '@angular/router';
 import { defaultPath, adminPath, backendRoutePaths } from 'src/app/lib/views/partials/partials-configs';
@@ -11,6 +11,7 @@ import { createSubject, observableOf } from 'src/app/lib/core/rxjs/helpers';
 import { mapPaginatorStateWith } from 'src/app/lib/core/pagination/helpers';
 import { paginateDepartmentV2Action } from '../../../../../core/auth/core/actions/department';
 import { doLog } from 'src/app/lib/core/rxjs/operators';
+import { httpServerHost } from 'src/app/lib/core/utils/url/url';
 
 @Component({
   selector: 'app-list-department',
@@ -51,7 +52,7 @@ export class ListDepartmentComponent implements OnDestroy {
     ).pipe(
       map(state => {
         paginateDepartmentV2Action(
-          this.departments.store$)(this.client, backendRoutePaths.departmentPath, state);
+          this.departments.store$)(this.client, `${httpServerHost(this.host)}/${this.path}`, state);
       }),
     );
 
@@ -61,6 +62,8 @@ export class ListDepartmentComponent implements OnDestroy {
     private client: DrewlabsRessourceServerClient,
     public readonly typeHelper: TypeUtilHelper,
     private dialog: Dialog,
+    @Inject('AUTH_DEPARTMENTS_RESOURCE_PATH') private path: string,
+    @Inject('AUTH_SERVER_HOST') private host: string,
   ) {
     this.gridState$.subscribe();
   }

@@ -22,26 +22,23 @@
         <!-- <clr-dg-column [clrDgField]="'id'">ID</clr-dg-column> -->
         <clr-dg-column [clrDgField]="'user_info__firstname'">Nom</clr-dg-column>
         <clr-dg-column [clrDgField]="'user_info__lastname'">Prénoms</clr-dg-column>
-        <clr-dg-column [clrDgField]="'agence__label'">Agence</clr-dg-column>
-        <clr-dg-column>Départment</clr-dg-column>
         <clr-dg-column [clrDgField]="'user_info__phone_number'">Numéro Tel.</clr-dg-column>
         <clr-dg-column [clrDgField]="'user_info__email'">E-mail</clr-dg-column>
+        <clr-dg-column>Départment</clr-dg-column>
         <clr-dg-column>Status</clr-dg-column>
         <clr-dg-row *ngFor="let item of vm?.dataSource?.data">
           <clr-dg-action-overflow>
             <button class="action-item" (click)="handleEditEvent(item.id)">ÉDITER</button>
             <button class="action-item" (click)="handleDeleteEvent(item.id, vm?.translations)">SUPPRIMER</button>
           </clr-dg-action-overflow>
-          <!-- <clr-dg-cell><pre>{{ item | json }}</pre></clr-dg-cell> -->
           <clr-dg-cell>{{ item.userInfo?.lastname }}</clr-dg-cell>
           <clr-dg-cell>{{ item.userInfo?.firstname }}</clr-dg-cell>
-          <clr-dg-cell>{{ item.userDetails.division }}</clr-dg-cell>
-          <clr-dg-cell>{{ item.userDetails?.department }}</clr-dg-cell>
           <clr-dg-cell>{{ item.userDetails?.phoneNumber }}</clr-dg-cell>
           <clr-dg-cell>{{ item.userDetails?.email }}</clr-dg-cell>
           <clr-dg-cell>
             <clr-icon *ngIf="item.userDetails?.isManager" shape="administrator"></clr-icon>
           </clr-dg-cell>
+          <clr-dg-cell>{{ item.userDetails?.department }}</clr-dg-cell>
           <clr-dg-row-detail *clrIfExpanded>
             <span class="role-list">{{item?.rolesAsString}}</span>
           </clr-dg-row-detail>

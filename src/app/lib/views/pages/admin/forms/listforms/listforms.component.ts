@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnDestroy } from '@angular/core';
+import { Component, ViewChild, OnDestroy, Inject } from '@angular/core';
 import { ClrDatagrid, ClrDatagridStateInterface } from '@clr/angular';
 import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, map, shareReplay, startWith, switchMap, takeUntil } from 'rxjs/operators';
@@ -10,6 +10,7 @@ import { DrewlabsRessourceServerClient } from '../../../../../core/http/core/res
 import { doLog } from 'src/app/lib/core/rxjs/operators';
 import { partialConfigs } from 'src/app/lib/views/partials/partials-configs';
 import { FormV2 } from '../../../../../core/components/dynamic-inputs/core/v2/models/form';
+import { httpServerHost } from 'src/app/lib/core/utils/url/url';
 
 @Component({
   selector: 'app-listforms',
@@ -54,7 +55,7 @@ export class ListformsComponent implements OnDestroy {
     ).pipe(
       map(state => {
         onPaginateFormsAction(
-          this.formsProvider.store$)(this.client, 'forms', state);
+          this.formsProvider.store$)(this.client, `${httpServerHost(this.host)}/${this.path}`, state);
       }),
       doLog('Forms Datagrid state: '),
     );
@@ -64,7 +65,9 @@ export class ListformsComponent implements OnDestroy {
   constructor(
     private formsProvider: FormsProvider,
     private client: DrewlabsRessourceServerClient,
-    private router: Router
+    private router: Router,
+    @Inject('FORM_RESOURCES_PATH') private path: string,
+    @Inject('FORM_SERVER_HOST') private host: string,
   ) {
     this.formsDatagridState$.subscribe();
   }

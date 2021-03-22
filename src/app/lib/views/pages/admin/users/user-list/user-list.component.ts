@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnDestroy } from '@angular/core';
+import { Component, ViewChild, OnDestroy, Inject } from '@angular/core';
 import { ClrDatagridStateInterface, ClrDatagrid } from '@clr/angular';
 import { Router } from '@angular/router';
 import { partialConfigs, adminPath, backendRoutePaths } from 'src/app/lib/views/partials/partials-configs';
@@ -11,6 +11,7 @@ import { doLog } from 'src/app/lib/core/rxjs/operators';
 import { paginateAppUsers, deleteUserAction } from '../../../../../core/auth/core/actions/app-users';
 import { DrewlabsRessourceServerClient } from 'src/app/lib/core/http/core';
 import { TranslationService } from 'src/app/lib/core/translator';
+import { httpServerHost } from 'src/app/lib/core/utils/url/url';
 
 @Component({
   selector: 'app-user-list',
@@ -61,7 +62,7 @@ export class UserListComponent implements OnDestroy {
     ).pipe(
       map(state => {
         paginateAppUsers(
-          this.users.store$)(this.client, backendRoutePaths.users, state);
+          this.users.store$)(this.client, `${httpServerHost(this.host)}/${this.path}`, state);
       }),
       doLog('Forms Datagrid state: '),
     );
@@ -71,7 +72,9 @@ export class UserListComponent implements OnDestroy {
     private router: Router,
     private client: DrewlabsRessourceServerClient,
     private dialog: Dialog,
-    private translate: TranslationService
+    private translate: TranslationService,
+    @Inject('AUTH_USERS_RESOURCE_PATH') private path: string,
+    @Inject('AUTH_SERVER_HOST') private host: string,
   ) {
     this.gridState$.subscribe();
     this.dashboardHomeRoute = `/${partialConfigs.routes.commonRoutes.dashboardHomeRoute}`;

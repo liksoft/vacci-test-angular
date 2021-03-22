@@ -1,8 +1,7 @@
 <clr-datagrid #clrDataGrid (clrDgRefresh)="refresh.emit($event)" [clrDgLoading]="showLoader">
   <clr-dg-action-bar>
     <drewlabs-datgrid-header [refreshButtonDisabled]="showLoader" [createButtonDisabled]="false"
-      (createEvent)="navigateToCreateFormView()" (refreshEvent)="onDgHeaderRefresh()" [showAssignmentButton]="false"
-      [showExportDropdown]="false">
+      (createEvent)="navigateToCreateFormView()" (refreshEvent)="onDgHeaderRefresh()" [showExportDropdown]="false">
     </drewlabs-datgrid-header>
   </clr-dg-action-bar>
   <clr-dg-column>ID</clr-dg-column>

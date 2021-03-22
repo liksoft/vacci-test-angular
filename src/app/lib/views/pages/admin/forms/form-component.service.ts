@@ -79,7 +79,8 @@ export class FormComponentService {
    * @param updateKey [[string]]
    * @param updateValue [[any]]
    */
-  updateFormControlValueBasedOnControlName(form: Partial<DynamicFormInterface>, matcher: string, updateKey: string, updateValue: any) {
+  updateFormControlValueBasedOnControlName(
+    form: Partial<DynamicFormInterface>, matcher: string, updateKey: string, updateValue: any) {
     const obj = {};
     obj[updateKey] = updateValue;
     const items = List(form.formControls);
@@ -118,13 +119,5 @@ export class FormComponentService {
       form,
       this.translate
     );
-  }
-
-  /**
-   * @description Checks if the value of the parameter is defined or not
-   * @param value [[any]]
-   */
-  isDefined(value: any) {
-    return isDefined(value);
   }
 }

@@ -20,11 +20,12 @@ import { MissingTranslationHandler, MissingTranslationHandlerParams, TranslateMo
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslationService } from './lib/core/translator';
-import { parseV1HttpResponse } from './lib/core/http/core/v1/http-response';
 import { DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
 import { AppComponentsLoadingComponent } from './lib/views/partials/ui-state-components/app-component-loader.component';
 import { AppUINotificationComponent } from './lib/views/partials/ui-state-components/app-ui-notification.component';
 import { DrewlabsV2LoginResultHandlerFunc } from './lib/core/rxjs/operators';
+import { parseV2HttpResponse } from './lib/core/http/core/v2/http-response';
+import { DynamicFormControlModule } from './lib/core/components/dynamic-inputs/dynamic-form-control';
 
 registerLocaleData(localeFr, 'fr', localeFrExtra);
 
@@ -61,7 +62,7 @@ export class TranslateHandler implements MissingTranslationHandler {
     }),
     SharedModule.forRoot(),
     CoreComponentModule.forRoot(),
-    DrewlabsHttpModule.forRoot({ serverURL: environment.APP_SERVER_URL, requestResponseHandler: parseV1HttpResponse }),
+    DrewlabsHttpModule.forRoot({ serverURL: environment.APP_SERVER_URL, requestResponseHandler: parseV2HttpResponse }),
     StorageModule.forRoot({ secretKey: environment.APP_SECRET }),
     AuthTokenModule.forRoot({}),
     AuthModule.forRoot({
@@ -73,7 +74,12 @@ export class TranslateHandler implements MissingTranslationHandler {
         usersPath: 'admin/users'
       }
     }),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    DynamicFormControlModule.forRoot({
+      serverConfigs: {
+        host: environment.FORM_SERVER_URL
+      }
+    })
   ],
   providers: [
     TranslationService,

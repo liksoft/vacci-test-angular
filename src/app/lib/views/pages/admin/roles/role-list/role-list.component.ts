@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, ViewChild, OnDestroy, Output, EventEmitter, Inject } from '@angular/core';
 import { ClrDatagrid, ClrDatagridStateInterface } from '@clr/angular';
 import { debounceTime, distinctUntilChanged, map, startWith, switchMap, takeUntil } from 'rxjs/operators';
 import { RoleV2 } from 'src/app/lib/core/auth/contracts/v2/authorizations/role';
@@ -9,7 +9,7 @@ import { RoleListPresenterComponent } from './role-list-presenter/role-list-pres
 import { RolesProvider } from '../../../../../core/auth/core/providers/role';
 import { DrewlabsRessourceServerClient } from 'src/app/lib/core/http/core';
 import { mapPaginatorStateWith } from 'src/app/lib/core/pagination/helpers';
-import { backendRoutePaths } from '../../../../partials/partials-configs';
+import { httpServerHost } from 'src/app/lib/core/utils/url/url';
 
 @Component({
   selector: 'app-role-list',
@@ -51,14 +51,18 @@ export class RoleListComponent implements OnDestroy {
     ).pipe(
       map(state => {
         paginateRolesAction(
-          this.provider.store$)(this.client, backendRoutePaths.roles, state);
+          this.provider.store$)(this.client, `${httpServerHost(this.host)}/${this.path}`, state);
       }),
-      doLog('Forms Datagrid state: '),
     );
 
   @ViewChild('clrDataGrid', { static: false }) dataGrid: ClrDatagrid;
 
-  constructor( private provider: RolesProvider, private client: DrewlabsRessourceServerClient) {
+  constructor(
+    private provider: RolesProvider,
+    private client: DrewlabsRessourceServerClient,
+    @Inject('AUTH_ROLES_RESOURCE_PATH') private path: string,
+    @Inject('AUTH_SERVER_HOST') private host: string
+  ) {
     this.rolesGridState$.subscribe();
   }
 
