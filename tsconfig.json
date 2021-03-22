@@ -16,10 +16,10 @@
     "lib": [
       "es2018",
       "dom"
-    ],
-    "angularCompilerOptions": {
-      "fullTemplateTypeCheck": true,
-      "preserveWhitespaces": true
-    }
+    ]
+    // "angularCompilerOptions": {
+    //   "fullTemplateTypeCheck": true,
+    //   "preserveWhitespaces": true
+    // }
   }
 }
