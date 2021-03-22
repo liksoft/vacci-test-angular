@@ -21,6 +21,7 @@ export const environment = {
   APP_SERVER_URL: 'http://127.0.0.1:8000/api/',
   APP_FILE_SERVER_URL: 'http://127.0.0.1:8000/api/',
   APP_SECRET: 'V1HQkt03PoGdlxN',
+  AUTH_SERVER_URL: 'http://127.0.0.1:8000/',
   isDepartmentWorkspaceEnabled: false,
   isModulesWorkspaceEnabled: false,
   isFormsWorkspaceEnabled: true,

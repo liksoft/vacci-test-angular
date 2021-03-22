@@ -1,5 +1,4 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { Permission } from 'src/app/lib/core/auth/models/permission';
 import { AbstractAlertableComponent } from 'src/app/lib/core/helpers/component-interfaces';
 import { AppUIStoreManager } from 'src/app/lib/core/helpers/app-ui-store-manager.service';
 import { TypeUtilHelper } from '../../../../../core/helpers/type-utils-helper';

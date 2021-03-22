@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Input, Inject, Output, EventEmitter } fro
 import { AbstractAlertableComponent } from 'src/app/lib/core/helpers/component-interfaces';
 import { IDynamicForm } from 'src/app/lib/core/components/dynamic-inputs/core';
 import { FormGroup } from '@angular/forms';
-import { AppConfigs } from 'src/app/lib/bloc/models/app-configs';
+import { AppConfigs, appConfigsFormViewModel } from 'src/app/lib/bloc/models/app-configs';
 import { Subject } from 'rxjs';
 import { AppUIStoreManager } from 'src/app/lib/core/helpers/app-ui-store-manager.service';
 import { DynamicControlParser } from 'src/app/lib/core/helpers/dynamic-control-parser';
@@ -98,7 +98,7 @@ export class GlobalConfigurationsFormComponent extends AbstractAlertableComponen
 
   prefilForm() {
     if (this.selected) {
-      for (const [key, v] of Object.entries(this.selected.formViewModelBindings())) {
+      for (const [key, v] of Object.entries(appConfigsFormViewModel())) {
         if (this.typeHelper.isDefined(this.componentFormGroup.get(key))) {
           this.componentFormGroup.get(key).setValue(v);
         }

@@ -20,11 +20,11 @@ import { MissingTranslationHandler, MissingTranslationHandlerParams, TranslateMo
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslationService } from './lib/core/translator';
-import { DrewlabsV1LoginResultHandlerFunc } from './lib/core/rxjs/operators/auth/v1/login-response';
 import { parseV1HttpResponse } from './lib/core/http/core/v1/http-response';
 import { DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
 import { AppComponentsLoadingComponent } from './lib/views/partials/ui-state-components/app-component-loader.component';
 import { AppUINotificationComponent } from './lib/views/partials/ui-state-components/app-ui-notification.component';
+import { DrewlabsV2LoginResultHandlerFunc } from './lib/core/rxjs/operators';
 
 registerLocaleData(localeFr, 'fr', localeFrExtra);
 
@@ -65,7 +65,13 @@ export class TranslateHandler implements MissingTranslationHandler {
     StorageModule.forRoot({ secretKey: environment.APP_SECRET }),
     AuthTokenModule.forRoot({}),
     AuthModule.forRoot({
-      loginResponseHandler: DrewlabsV1LoginResultHandlerFunc
+      loginResponseHandler: DrewlabsV2LoginResultHandlerFunc,
+      serverConfigs: {
+        host: environment.AUTH_SERVER_URL,
+        loginPath: 'auth/login',
+        logoutPath: 'auth/logout',
+        usersPath: 'admin/users'
+      }
     }),
     BrowserAnimationsModule
   ],
