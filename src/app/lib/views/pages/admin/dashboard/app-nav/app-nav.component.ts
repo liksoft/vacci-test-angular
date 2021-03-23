@@ -106,7 +106,8 @@ export class AppNavComponent implements OnInit {
       if (
         (!environment.isDepartmentWorkspaceEnabled && (route.key === 'navbar_department_management_header')) ||
         (!environment.isFormsWorkspaceEnabled && (route.key === 'navbar_forms_managenents_header')) ||
-        (!environment.isModulesWorkspaceEnabled && (route.key === 'navbar_modules_management_header'))
+        (!environment.isModulesWorkspaceEnabled && (route.key === 'navbar_modules_management_header')) ||
+        (!environment.isConfigurationWorkspaceEnabled && (route.key === 'navbar_cofigs'))
       ) {
         return false;
       }

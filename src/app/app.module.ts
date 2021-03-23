@@ -62,13 +62,16 @@ export class TranslateHandler implements MissingTranslationHandler {
     }),
     SharedModule.forRoot(),
     CoreComponentModule.forRoot(),
-    DrewlabsHttpModule.forRoot({ serverURL: environment.APP_SERVER_URL, requestResponseHandler: parseV2HttpResponse }),
+    DrewlabsHttpModule.forRoot({
+      serverURL: environment.APP_SERVER_URL,
+      requestResponseHandler: parseV2HttpResponse // Modifiable
+    }),
     StorageModule.forRoot({ secretKey: environment.APP_SECRET }),
     AuthTokenModule.forRoot({}),
     AuthModule.forRoot({
       loginResponseHandler: DrewlabsV2LoginResultHandlerFunc,
       serverConfigs: {
-        host: environment.AUTH_SERVER_URL,
+        host: null,
         loginPath: 'auth/login',
         logoutPath: 'auth/logout',
         usersPath: 'admin/users'

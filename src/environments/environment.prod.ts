@@ -22,4 +22,5 @@ export const environment = {
   isDepartmentWorkspaceEnabled: false,
   isModulesWorkspaceEnabled: false,
   isFormsWorkspaceEnabled: true,
+  isConfigurationWorkspaceEnabled: false
 };

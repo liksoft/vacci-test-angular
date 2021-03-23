@@ -1,27 +1,28 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ComponentReactiveFormHelpers, DynamicFormHelpers } from 'src/app/lib/core/helpers/component-reactive-form-helpers';
 import { DynamicControlParser } from 'src/app/lib/core/helpers/dynamic-control-parser';
 import { TypeUtilHelper } from 'src/app/lib/core/helpers/type-utils-helper';
 import { isDefined } from 'src/app/lib/core/utils';
-import { RolesProvider } from '../../../../../core/auth/core/providers/role';
-import { DrewlabsRessourceServerClient } from '../../../../../core/http/core/ressource-server-client';
+import { RolesProvider } from 'src/app/lib/core/auth/core/providers/role';
+import { DrewlabsRessourceServerClient } from 'src/app/lib/core/http/core/ressource-server-client';
 import { map, tap, takeUntil, filter, mergeMap, withLatestFrom } from 'rxjs/operators';
-import { FormsProvider } from '../../../../../core/components/dynamic-inputs/core/v2/providers/form';
+import { FormsProvider } from 'src/app/lib/core/components/dynamic-inputs/core/v2/providers/form';
 import { environment } from 'src/environments/environment';
 import { getRoleUsingID, resetRolesCacheAction, roleCreatedAction, roleUpdatedAction } from 'src/app/lib/core/auth/core/actions/roles';
 import { backendRoutePaths } from '../../../../partials/partials-configs';
-import { createStateful, createSubject } from '../../../../../core/rxjs/helpers';
-import { TranslationService } from '../../../../../core/translator';
-import { createRoleAction, updateRoleAction } from '../../../../../core/auth/core/actions/roles';
+import { createStateful, createSubject } from 'src/app/lib/core/rxjs/helpers';
+import { TranslationService } from 'src/app/lib/core/translator';
+import { createRoleAction, updateRoleAction } from 'src/app/lib/core/auth/core/actions/roles';
 import { combineLatest, from } from 'rxjs';
-import { loadFormUsingIDAction } from '../../../../../core/components/dynamic-inputs/core/v2/actions/form';
-import { onErrorAction } from '../../../../../core/rxjs/state/rx-state';
-import { AppUIStateProvider, UIStateStatusCode } from '../../../../../core/helpers';
-import { sortFormByIndex } from '../../../../../core/components/dynamic-inputs/core/helpers';
-import { doLog } from '../../../../../core/rxjs/operators';
+import { loadFormUsingIDAction } from 'src/app/lib/core/components/dynamic-inputs/core/v2/actions/form';
+import { onErrorAction } from 'src/app/lib/core/rxjs/state/rx-state';
+import { AppUIStateProvider, UIStateStatusCode } from 'src/app/lib/core/helpers';
+import { sortDynamicFormByIndex } from 'src/app/lib/core/components/dynamic-inputs/core/helpers';
+import { doLog } from 'src/app/lib/core/rxjs/operators';
 import { DynamicFormInterface } from 'src/app/lib/core/components/dynamic-inputs/core/compact';
+import { httpServerHost } from 'src/app/lib/core/utils/url/url';
 
 @Component({
   selector: 'app-add-role',
@@ -53,7 +54,7 @@ export class AddRoleComponent implements OnInit, OnDestroy {
           form,
           !this.typeHelper.isDefined(state.selectedID)
         ) as FormGroup;
-        return { form: sortFormByIndex(form), formgroup, selectedID: state.selectedID };
+        return { form: sortDynamicFormByIndex(form), formgroup, selectedID: state.selectedID };
       })
     )),
     tap(() => this.uiState.endAction())
@@ -68,7 +69,7 @@ export class AddRoleComponent implements OnInit, OnDestroy {
       takeUntil(this._destroy$),
       map(params => {
         if (params.has('id')) {
-          getRoleUsingID(this.roles.store$)(this.client, backendRoutePaths.roles, params.get('id'));
+          getRoleUsingID(this.roles.store$)(this.client, `${httpServerHost(this.host)}/${this.path}`, params.get('id'));
         }
         return params.get('id');
       })
@@ -142,7 +143,9 @@ export class AddRoleComponent implements OnInit, OnDestroy {
     public roles: RolesProvider,
     public forms: FormsProvider,
     public client: DrewlabsRessourceServerClient,
-    private translate: TranslationService
+    private translate: TranslationService,
+    @Inject('AUTH_ROLES_RESOURCE_PATH') private path: string,
+    @Inject('AUTH_SERVER_HOST') private host: string,
   ) {
     this.uiState.startAction();
     this._formState$.pipe(

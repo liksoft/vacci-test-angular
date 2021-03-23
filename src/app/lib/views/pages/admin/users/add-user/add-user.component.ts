@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, Inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { IDynamicForm } from 'src/app/lib/core/components/dynamic-inputs/core';
 import { ActivatedRoute } from '@angular/router';
@@ -21,6 +21,7 @@ import { environment } from 'src/environments/environment';
 import { TranslationService } from '../../../../../core/translator/translator.service';
 import { doLog } from '../../../../../core/rxjs/operators/index';
 import { AppUser } from 'src/app/lib/core/auth/contracts/v2/user/user';
+import { httpServerHost } from 'src/app/lib/core/utils/url/url';
 
 @Component({
   selector: 'app-add-user',
@@ -44,7 +45,7 @@ export class AddUserComponent implements OnInit, OnDestroy {
       if (params.has('id')) {
         getUserUsingID(this.users.store$)(
           this.client,
-          backendRoutePaths.users,
+          `${httpServerHost(this.host)}/${this.path}`,
           params.get('id')
         );
       }
@@ -144,7 +145,9 @@ export class AddUserComponent implements OnInit, OnDestroy {
     private uiState: AppUIStateProvider,
     private formHelper: FormHelperService,
     private client: DrewlabsRessourceServerClient,
-    private translate: TranslationService
+    private translate: TranslationService,
+    @Inject('AUTH_USERS_RESOURCE_PATH') private path: string,
+    @Inject('AUTH_SERVER_HOST') private host: string,
   ) {
     this.listUserRoutePath = `/${defaultPath}/${adminPath.managementsRoute}/${adminPath.listUsersRoute}`;
     this.selectedUserID$.pipe(

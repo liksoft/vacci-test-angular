@@ -1,18 +1,11 @@
-<div class="app-page-header clr-row">
-  <div class="clr-col-sm-12">
-    <div class="card">
-      <div class="card-header">
-        <h2>Gestion des départments</h2>
-        <div class="app-intro">
-          <span>Les départments définissent des entités des regroupant des groupes d'utilisateur pouvant effectuer des
-            activités bien définis par des autorisations</span>
-        </div>
-      </div>
+<div class="dashboard-preview">
+  <div class="app-page-header">
+    <h2>Gestion des départments</h2>
+    <div class="app-intro">
+      <span>Les départments définissent des entités des regroupant des groupes d'utilisateur pouvant effectuer des
+        activités bien définis par des autorisations</span>
     </div>
   </div>
-</div>
-<div class="clr-row app-content-container">
-  <div class="clr-col-12">
     <ng-container *ngIf="state$ | async as vm">
       <clr-datagrid #clrDataGrid [clrDgLoading]="vm?.performingAction" (clrDgRefresh)="onDgRefresh($event)"
         class="datagrid-compact">
@@ -43,5 +36,4 @@
         </clr-dg-footer>
       </clr-datagrid>
     </ng-container>
-  </div>
 </div>

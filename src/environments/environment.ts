@@ -18,14 +18,15 @@ export const environment = {
     departments: 18,
     modules: 15
   },
-  APP_SERVER_URL: 'http://127.0.0.1:8000/api/',
-  APP_FILE_SERVER_URL: 'http://127.0.0.1:8000/api/',
+  APP_SERVER_URL: 'http://127.0.0.1:8888/',
+  APP_FILE_SERVER_URL: 'http://127.0.0.1:8888/api/',
   APP_SECRET: 'V1HQkt03PoGdlxN',
-  AUTH_SERVER_URL: 'http://127.0.0.1:8000/',
-  FORM_SERVER_URL: 'http://127.0.0.1:8000/',
+  AUTH_SERVER_URL: 'http://127.0.0.1:8888/',
+  FORM_SERVER_URL: 'http://127.0.0.1:8888/',
   isDepartmentWorkspaceEnabled: false,
   isModulesWorkspaceEnabled: false,
   isFormsWorkspaceEnabled: true,
+  isConfigurationWorkspaceEnabled: false
 };
 
 
