@@ -98,6 +98,10 @@ export class TranslateHandler implements MissingTranslationHandler {
         maxFiles: 1,
         addRemoveLinks: true
       }
+    },
+    {
+      provide: 'FILE_STORE_PATH',
+      useValue: environment.APP_FILE_SERVER_URL
     }
   ],
   bootstrap: [AppComponent]
