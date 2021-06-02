@@ -1,4 +1,5 @@
 {
+    "deletionPrompt": "Cliquez sur le button pour confirmer la suppression!",
     "statusOffline": "Vous semblez être déconnecté. Tentative de reconnection en cours...",
     "statusOnline": "Votre connection est rétablie...",
     "serverRequestFailed": "La requête a échouée, veuillez réessayer plus tard ou contactez le Support si le problème persiste.",

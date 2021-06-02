@@ -35,7 +35,7 @@ import { DynamicFormControlInterface } from '../../../../../core/components/dyna
     `
   ]
 })
-export class FormControlComponent extends AbstractAlertableComponent {
+export class FormControlComponent {
 
   @Input() title: string;
   @Input() badge: string | number;
@@ -69,11 +69,11 @@ export class FormControlComponent extends AbstractAlertableComponent {
    * @param dialog [[Dialog]]
    */
   constructor(
-    uiStore: AppUIStoreManager,
+    // uiStore: AppUIStoreManager,
     private controlParser: DynamicControlParser,
     public readonly typeHelper: TypeUtilHelper
   ) {
-    super(uiStore);
+    // super(uiStore);
   }
 
   async onEditFormControl() {

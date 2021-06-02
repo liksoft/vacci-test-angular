@@ -9,7 +9,9 @@ import {
   ListformsComponent,
   FormControlAddComponent,
   FormControlComponent,
-  FormsViewComponent
+  FormsViewComponent,
+  ControlOptionsComponent,
+  ControlOptionViewComponent
 } from '../forms';
 import {
   ModulesComponent,
@@ -241,6 +243,14 @@ export const getRoutes = () => {
             authorizations: adminAuthorizations
           }
         },
+        {
+          path: `${adminPath.managementsRoute}/${adminPath.controlOptionsRoute}`,
+          component: ControlOptionsComponent,
+          canActivate: [AuthGuardService, AuthorizationsGuard],
+          data: {
+            authorizations: adminAuthorizations
+          }
+        }
       ]
     );
   }
@@ -294,7 +304,12 @@ export const MODULE_DECLARATIONS = [
 
   // Accounts & Settings components
   SettingsComponent,
-  UpdatePasswordViewComponent
+  UpdatePasswordViewComponent,
+
+
+  // Form control options
+  ControlOptionViewComponent,
+  ControlOptionsComponent,
 ];
 
 export const COMPONENTS_PROVIDERS: Provider[] = [

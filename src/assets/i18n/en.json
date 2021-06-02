@@ -1,4 +1,5 @@
 {
+  "deletionPrompt": "Click on the button below to proceed to the delete operation.",
   "statusOffline": "You seem to be disconnected. Attempting to connect ...",
   "statusOnline": "Your connection is reestablished ...",
   "serverRequestFailed": "An error occured during request, please try again later or contact the support",
