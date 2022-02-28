@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,6 +28,11 @@ import { DrewlabsV2LoginResultHandlerFunc } from './lib/core/rxjs/operators';
 import { parseV2HttpResponse } from './lib/core/http/core/v2/http-response';
 import { DynamicFormControlModule } from './lib/core/components/dynamic-inputs/dynamic-form-control';
 
+
+// import { HomeComponent } from './home/home.component';
+// import { FormsComponent } from './forms/forms.component';
+// import { FormPointsComponent } from './pages/form-points/form-points.component';
+
 registerLocaleData(localeFr, 'fr', localeFrExtra);
 
 // AoT requires an exported function for factories
@@ -46,8 +52,13 @@ export class TranslateHandler implements MissingTranslationHandler {
     AppComponent,
     AppComponentsLoadingComponent,
     AppUINotificationComponent,
+    //CustomerhomeComponent,
+    //HomeComponent,
+    //FormsComponent,
+    //FormPointsComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
@@ -71,8 +82,8 @@ export class TranslateHandler implements MissingTranslationHandler {
     AuthModule.forRoot({
       loginResponseHandler: DrewlabsV2LoginResultHandlerFunc,
       serverConfigs: {
-        host: null,
-        loginPath: 'auth/login',
+        host: 'http://127.0.0.1:8000',
+        loginPath: 'login',
         logoutPath: 'auth/logout',
         usersPath: 'admin/users'
       }

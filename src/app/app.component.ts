@@ -15,7 +15,7 @@ import { doLog } from './lib/core/rxjs/operators';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements AfterViewInit {
-  title = 'Elewou Administration';
+  title = 'VacciTest';
   showComponentLoadingDirective = true;
 
   uiState$ = this.uiState.uiState.pipe(
@@ -44,7 +44,7 @@ export class AppComponent implements AfterViewInit {
     setTimeout(() => {
       const currentPath = this.location.path();
       if (value && lodash.isEmpty(currentPath)) {
-        this.router.navigateByUrl('/dashboard');
+        //this.router.navigateByUrl('/dashboard');
         return;
       }
     }, 0);

@@ -1,0 +1,186 @@
+<div class="clr-row welcome-admin">
+  <div class="clr-col-6 text-section">
+    <h1 class="welcome-text">Liste des entrées </h1>
+    <p>We are very proud to welcome you everyday on this management dashboard of your platform. Please feel free but
+      cautiously to access all the areas of this dashboard.</p>
+
+  </div>
+</div>
+<div class="clr-row page-content">
+  <div class=" {{ gridSize }} view-area data-area">
+
+    <div class="dashboard-preview">
+
+
+          <div class="table-container">
+            <clr-datagrid *ngIf="data ">
+
+              <clr-dg-action-bar>
+                <!-- <a routerLink="/app/add-Material"> -->
+                <button type="button" class="btn btn-primary" (click)="Add()">
+                  <clr-icon shape="plus-circle" size="25"></clr-icon>
+                  Nouveau
+                </button>
+                <!-- </a> -->
+
+                <button type="button" class="btn" (click)="Relaod()">
+                  <clr-icon shape="sync" size="25"></clr-icon>
+                  Actualiser
+                </button>
+              </clr-dg-action-bar>
+              <clr-dg-column [clrDgField]="'matricule'">N° reference</clr-dg-column>
+              <clr-dg-column [clrDgField]="'last_name'">Date</clr-dg-column>
+              <clr-dg-column>Date de création</clr-dg-column>
+              <clr-dg-placeholder>Nous n'avons trouvé aucune donnée !</clr-dg-placeholder>
+              <clr-dg-row *clrDgItems="let item of data" [clrDgItem]="item">
+                <clr-dg-action-overflow>
+
+                  <button class="btn btn-block btn-link btn-sm" (click)="Update(item)">
+                    <clr-icon shape="edit"></clr-icon>
+                    Modifier
+                  </button>
+                  <button class="btn btn-block btn-link btn-sm" (click)="onDeleteModal(item)">
+                    <clr-icon shape="trash"></clr-icon>
+                    Supprimer
+                  </button>
+                </clr-dg-action-overflow>
+                <clr-dg-cell>{{ item?.ref | uppercase }}</clr-dg-cell>
+                <clr-dg-cell>{{ item?.date | uppercase }}</clr-dg-cell>
+                <clr-dg-cell>{{ item?.created_at }}</clr-dg-cell>
+
+              </clr-dg-row>
+              <clr-dg-detail *clrIfDetail="let item">
+                <clr-dg-detail-body>
+                  <div class="clr-row">
+
+                    <div class="clr-col-md-12">
+                      <h3>Detail su l'entree : {{item?.ref}}</h3>
+                      <hr>
+                      <div class="table-container">
+                        <clr-datagrid>
+
+                          <clr-dg-column [clrDgField]="'article'" >
+                            article
+                          </clr-dg-column>
+                          <clr-dg-column [clrDgField]="'quantite'" >
+                            quantite
+                          </clr-dg-column>
+                          <clr-dg-column [clrDgField]="'created_at'" >
+                            Date de création
+                          </clr-dg-column>
+                          <clr-dg-column [clrDgField]="'updated_at'" >
+                            Dernière modification
+                          </clr-dg-column>
+
+
+                          <clr-dg-row *clrDgItems="let material of item.entry_details" [clrDgItem]="material">
+                            <clr-dg-action-overflow>
+
+                              <a routerLink="/app/material/calender/{{ material.id }}" id="btnLigne">
+                                <button class="btn btn-sm btn-link btn-block">
+                                  <clr-icon shape="calendar" size="20"></clr-icon>
+                                  Articles
+                                </button>
+                              </a>
+                              <hr class="hr1" />
+
+                              <button
+                                class="btn btn-sm btn-link btn-block"
+                                (click)="Update(material)"
+                              >
+                                <clr-icon shape="pencil" size="20"></clr-icon>
+                                Modifier
+                              </button>
+
+                              <!-- <button class="action-item" (click)="deleteData(material.id)">
+                                  Archiver
+                                </button> -->
+                            </clr-dg-action-overflow>
+                            <clr-dg-cell >{{ material?.article?.article_name.label }}</clr-dg-cell>
+
+                            <clr-dg-cell >
+                              <span class="label">{{ material.qty }}</span>
+                            </clr-dg-cell>
+
+                            <clr-dg-cell >{{
+                              material.created_at | date
+                            }}</clr-dg-cell>
+
+                            <clr-dg-cell >{{
+                              material.updated_at | date
+                            }}</clr-dg-cell>
+
+
+
+
+                          </clr-dg-row>
+
+
+                        </clr-datagrid>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div *ngIf="!item" [clrLoading]="true">Chargement...</div>
+                </clr-dg-detail-body>
+              </clr-dg-detail>
+              <clr-dg-footer>
+                <clr-dg-pagination #pagination [clrDgPageSize]="15">
+                  <clr-dg-page-size [clrPageSizeOptions]="[15, 20, 30]"></clr-dg-page-size>
+                  {{ pagination.firstItem + 1 }}
+                  -
+                  {{ pagination.lastItem + 1 }}
+                  {{ "pagination.of" | translate }}
+                  {{ pagination.totalItems }}
+                  Employés
+                </clr-dg-pagination>
+              </clr-dg-footer>
+
+            </clr-datagrid>
+          </div>
+
+    </div>
+  </div>
+
+
+
+</div>
+
+<div class="clr-col-sm-3 modal-h" *ngIf="showUp">
+  <div class="modal-dialog modal-lg" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          aria-label="Close"
+          class="close"
+          type="button"
+          (click)="Cansel()"
+        >
+          <clr-icon aria-hidden="true" shape="close"></clr-icon>
+        </button>
+        <h3 class="modal-title">Nouveau profil</h3>
+      </div>
+      <div class="modal-body">
+
+
+            <form class="clr-form" *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup)">
+              <app-dynamic-form-wapper [componentFormGroup]="formGroup" [form]="form"></app-dynamic-form-wapper>
+              <div class=" form button-container">
+                <button type="submit" class="btn btn-primary" [disabled]="formGroup.invalid" *ngIf="updating == false">
+                  <clr-icon shape="floppy"></clr-icon> Valider
+                </button>
+                <button type="button" class="btn btn-primary" (click)="onUpdate(formGroup)" [disabled]="formGroup.invalid"
+                  *ngIf="updating == true">
+                  <clr-icon shape="sync"></clr-icon> Modifier
+                </button>
+                <button type="button" class="btn btn-danger" (click)="onCancel()" *ngIf="updating == true">
+                  <clr-icon shape="times"></clr-icon> Annuler
+                </button>
+              </div>
+            </form>
+
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+<div class="clr-row welcome-admin">
+  <div class="clr-col-6 text-section">
+    <h1 class="welcome-text">Créer une entrée</h1>
+    <p>We are very proud to welcome you everyday on this management dashboard of your platform. Please feel free but
+      cautiously to access all the areas of this dashboard.</p>
+
+  </div>
+</div>
+<div class="clr-row page-content">
+  <div class="clr-col-12 view-area data-area">
+    <div class="dashboard-preview">
+      <h4 class="area-title">Nouveau Centre</h4>
+      <div class=" clr-col-12 view-area data-area">
+
+                <button type="button" class="btn" (click)="Refresh()">
+                  <clr-icon shape="sync" size="25"></clr-icon>
+                  Recommencer
+                </button>
+
+      </div>
+      <form class="clr-form" *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup)">
+        <div class="clr-row page-content">
+          <div class="clr-col-8">
+            <app-dynamic-form-wapper [componentFormGroup]="formGroup" [form]="form"></app-dynamic-form-wapper>
+
+          </div>
+          <div class="clr-col-4">
+            <div class=" form button-container" style="margin-left:20px">
+              <button type="submit" class="btn btn-primary" [disabled]="formGroup.invalid" *ngIf="updating == false">
+                <clr-icon shape="floppy"></clr-icon> Valider
+              </button>
+              <button type="button" class="btn btn-primary" (click)="onUpdate(formGroup)" [disabled]="formGroup.invalid"
+                *ngIf="updating == true">
+                <clr-icon shape="sync"></clr-icon> Modifier
+              </button>
+              <button type="button" class="btn btn-danger" (click)="onCancel()" *ngIf="updating == true">
+                <clr-icon shape="times"></clr-icon> Annuler
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </form>
+      <ng-template ad-Host></ng-template>
+
+    </div>
+  </div>
+
+
+</div>

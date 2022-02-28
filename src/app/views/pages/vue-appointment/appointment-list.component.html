@@ -1,0 +1,118 @@
+<div class="clr-row welcome-admin">
+  <div class="clr-col-6 text-section">
+    <h1 class="welcome-text">Appointment list</h1>
+    <p>We are very proud to welcome you everyday on this management dashboard of your platform. Please feel free but
+      cautiously to access all the areas of this dashboard.</p>
+
+  </div>
+</div>
+<div class="clr-row page-content">
+  <div class="clr-col-12 view-area data-area">
+
+    <div class="dashboard-preview">
+
+
+
+      <div class="table-container">
+        <clr-datagrid>
+          <clr-dg-action-bar>
+            <!-- <a routerLink="/app/add-Material"> -->
+            <!-- <button type="button" class="btn btn-primary" (click)="ajouter()">
+              <clr-icon shape="plus-circle" size="25"></clr-icon>
+              Nouveau
+            </button> -->
+            <!-- </a> -->
+
+            <button type="button" class="btn" (click)="Relaod()">
+              <clr-icon shape="sync" size="25"></clr-icon>
+              Actualiser
+            </button>
+          </clr-dg-action-bar>
+
+          <clr-dg-column [clrDgField]="'ref'" >
+            ID
+          </clr-dg-column>
+          <clr-dg-column [clrDgField]="'point_id'" >
+            Lieu
+          </clr-dg-column>
+          <clr-dg-column [clrDgField]="'date'" >
+            Date
+          </clr-dg-column>
+          <clr-dg-column [clrDgField]="'hour'" >
+            Heure
+          </clr-dg-column>
+          <clr-dg-column [clrDgField]="'created_at'" >
+            Date d'ajout
+          </clr-dg-column>
+
+
+          <clr-dg-row *clrDgItems="let material of data" [clrDgItem]="material">
+            <clr-dg-action-overflow>
+
+              <a routerLink="/app/material/calender/{{ material.id }}" id="btnLigne">
+                <button class="btn btn-sm btn-link btn-block">
+                  <clr-icon shape="calendar" size="20"></clr-icon>
+                  Articles
+                </button>
+              </a>
+              <hr class="hr1" />
+
+              <button
+                class="btn btn-sm btn-link btn-block"
+                (click)="onEdit(material)"
+              >
+                <clr-icon shape="pencil" size="20"></clr-icon>
+                Modifier
+              </button>
+
+              <!-- <button class="action-item" (click)="deleteData(material.id)">
+                  Archiver
+                </button> -->
+            </clr-dg-action-overflow>
+            <clr-dg-cell >{{ material.ref }}</clr-dg-cell>
+            <clr-dg-cell  >
+              <div *ngIf="material.point ; else elseBlock"> {{ material.point?.label }} </div>
+              <ng-template #elseBlock><span class="label">A domicile.</span></ng-template>
+            </clr-dg-cell>
+
+
+            <clr-dg-cell >{{
+              material.date | date
+            }}</clr-dg-cell>
+
+            <clr-dg-cell >
+              <span class="label">{{ material.hour }}</span>
+            </clr-dg-cell>
+
+            <clr-dg-cell >{{
+              material.created_at | date
+            }}</clr-dg-cell>
+
+
+
+
+
+
+          </clr-dg-row>
+
+
+
+          <clr-dg-footer >
+            <clr-dg-pagination #pagination [clrDgPageSize]="10">
+              <clr-dg-page-size [clrPageSizeOptions]="[10, 20, 50, 100]">
+                Matériels par page
+              </clr-dg-page-size>
+              {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} ..
+              {{ pagination.totalItems }} Matériels
+            </clr-dg-pagination>
+          </clr-dg-footer>
+        </clr-datagrid>
+      </div>
+
+
+    </div>
+  </div>
+
+
+
+</div>
