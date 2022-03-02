@@ -1,5 +1,4 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { TranslationService } from './lib/core/translator/translator.service';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { Location } from '@angular/common';
@@ -8,6 +7,7 @@ import 'moment/locale/en-gb';
 import * as lodash from 'lodash';
 import { doLog } from './lib/core/rxjs/operators';
 import { AppUIStateProvider } from './lib/core/ui-state';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -23,17 +23,17 @@ export class AppComponent implements AfterViewInit {
   );
 
   constructor(
-    private translate: TranslationService,
+    private translate: TranslateService,
     private router: Router,
     private location: Location,
     private uiState: AppUIStateProvider
   ) {
-    this.translate.provider.addLangs(['en', 'fr']);
-    const browserLang = this.translate.provider.getBrowserLang();
+    this.translate.addLangs(['en', 'fr']);
+    const browserLang = this.translate.getBrowserLang();
     // Log(browserLang);
-    this.translate.provider.setDefaultLang(browserLang);
-    // Insure that translation provider use the user browser language
-    this.translate.provider.use(browserLang.match(/en|fr/) ? browserLang : 'en');
+    this.translate.setDefaultLang(browserLang);
+    // Insure that translation use the user browser language
+    this.translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
     // Set moment locale
     moment.locale(browserLang);
   }

@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { partialConfigs } from '../config/partials-configs';
-import { AppUIStateProvider } from '../lib/core/helpers/app-ui-store-manager.service';
 import { UsersProvider } from '../lib/core/auth/core/providers/app-user';
 import { DepartmentsProvider } from '../lib/core/auth/core/providers/department';
 import { RolesProvider } from '../lib/core/auth/core/providers/role';
 import { AuthorizationsProvider } from '../lib/core/auth/core/providers/authorizations';
 import { CompaniesProvider } from '../lib/core/auth/core/providers/organisation';
-import { RoutesMap } from 'src/app/lib/core/routes';
+import { RoutesMap } from '../lib/views/partials/routes';
+import { AppUIStateProvider } from '../lib/core/ui-state';
 
 const resetProvidersStores = (providers: { destroy(): void; }[]) => {
   providers.forEach(provider => provider.destroy());
