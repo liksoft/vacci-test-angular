@@ -1,29 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../lib/core/auth/core';
-import { defaultPath, adminPath } from '../../../config/partials-configs';
-import { RoutesMap } from 'src/app/lib/core/routes';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-admin-career-home',
-  templateUrl: './home.component.html',
-  styles: []
+  selector: "app-admin-career-home",
+  templateUrl: "./home.component.html",
+  styles: [],
 })
 export class AdminCareerHomeComponent {
-  public navbarRoutesMap: RoutesMap[];
-  public navbarRouteDefinitions: { [index: string]: string };
-  public listUserRoutePath: string;
-  public manageRolesPath: string;
-  public manageFormsPath: string;
-  public manageModulesPath: string;
-  public manageDepartmentsPath: string;
-  public manageGeneralConfigPath: string;
-
-  constructor(private auth: AuthService) {
-    this.listUserRoutePath = `/${defaultPath}/${adminPath.managementsRoute}/${adminPath.listUsersRoute}`;
-    this.manageRolesPath = `/${defaultPath}/${adminPath.managementsRoute}/${adminPath.rolesManagementRoute}`;
-    this.manageFormsPath = `/${defaultPath}/${adminPath.managementsRoute}/${adminPath.formsManagementRoute}`;
-    this.manageModulesPath = `/${defaultPath}/${adminPath.managementsRoute}/${adminPath.modulesManagementRoute}`;
-    this.manageDepartmentsPath = `/${defaultPath}/${adminPath.managementsRoute}/${adminPath.departmentManagementRoute}`;
-    this.manageGeneralConfigPath = `/${defaultPath}/${adminPath.globalConfigurationsRoute}`;
-  }
+  constructor() {}
 }

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Service } from '../service';
-import { HttpRequestService } from 'src/app/lib/core/http/core';
 import { environment } from 'src/environments/environment';
-import { Articlename } from '../../models/articlename';
+import { HttpClient } from 'src/app/lib/core/http/core';
 
 
 
@@ -12,7 +11,7 @@ import { Articlename } from '../../models/articlename';
 })
 export class ArticleNameService extends Service   {
 
-  constructor(protected client: HttpRequestService ) {
+  constructor(protected client: HttpClient ) {
 
     super()
     this.model = 'articlename' ;

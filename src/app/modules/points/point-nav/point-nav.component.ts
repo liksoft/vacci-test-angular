@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RoutesMap } from '../../../lib/core/routes';
-import { defaultPath, routeDefinitions } from '../../../config/partials-configs';
-import { environment } from 'src/environments/environment.prod';
+import { RoutesMap } from 'src/app/lib/views/partials/routes';
+import { routeDefinitions } from '../../../config/partials-configs';
 
 
 
@@ -165,19 +164,7 @@ export class PointNavComponent implements OnInit {
           },
         ]
       }
-    ].filter(_ => true);
-    // .filter(route => {
-    //   if (
-    //     (!environment.isDepartmentWorkspaceEnabled && (route.key === 'navbar_department_management_header')) ||
-    //     (!environment.isFormsWorkspaceEnabled && (route.key === 'navbar_administration_managenents_header')) ||
-    //     (!environment.isModulesWorkspaceEnabled && (route.key === 'navbar_modules_management_header')) ||
-    //     (!environment.isConfigurationWorkspaceEnabled && (route.key === 'navbar_cofigs'))
-    //   ) {
-    //     return false;
-    //   }
-    //   return true;
-    //   //  ''
-    // });
+    ];
     console.log('this.navbarRoutesMap');
     console.log(this.navbarRoutesMap);
   }

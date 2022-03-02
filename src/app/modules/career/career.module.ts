@@ -1,30 +1,19 @@
-import { NgModule} from '@angular/core';
+import { NgModule } from "@angular/core";
 import {
   MODULE_DECLARATIONS,
   CareerRoutingModule,
-  COMPONENTS_PROVIDERS
-} from './career-routing.module';
+  COMPONENTS_PROVIDERS,
+} from "./career-routing.module";
 
-import { RouterModule } from '@angular/router';
-import { SharedModule } from '../../lib/views/shared.module';
-import { PartialsModule } from '../../lib/views/partials/partials.module';
-import { DashboardModule } from '../../lib/views/pages/admin/dashboard/dashboard.module';
-
-import { FormComponentService } from '../../lib/views/pages/admin/forms/form-component.service';
-
+import { RouterModule } from "@angular/router";
+import { SharedModule } from "../../lib/views/shared.module";
 @NgModule({
-  imports: [
-    CareerRoutingModule,
-    PartialsModule,
-    SharedModule,
-    DashboardModule,
-    RouterModule,
-  ],
+  imports: [CareerRoutingModule, SharedModule, RouterModule],
   declarations: [...MODULE_DECLARATIONS],
   exports: [...MODULE_DECLARATIONS],
-  providers: [...COMPONENTS_PROVIDERS, FormComponentService],
-  entryComponents: []
+  providers: [...COMPONENTS_PROVIDERS],
+  entryComponents: [],
 })
 export class CareerModule {
-  constructor() { }
+  constructor() {}
 }

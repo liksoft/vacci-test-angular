@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RoutesMap } from '../../lib/core/routes';
+import { RoutesMap } from 'src/app/lib/views/partials/routes';
 import { partialConfigs } from '../../config/partials-configs';
 
 

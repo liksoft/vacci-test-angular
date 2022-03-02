@@ -1,25 +1,19 @@
-import { Injectable } from '@angular/core';
-import { Service } from '../service';
-import { HttpRequestService } from 'src/app/lib/core/http/core';
-import { environment } from 'src/environments/environment';
-import { Classe } from '../../models/classe';
-
-
-
+import { Injectable } from "@angular/core";
+import { Service } from "../service";
+import { environment } from "src/environments/environment";
+import { HttpClient } from "src/app/lib/core/http/core";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
-export class ClasseService extends Service  {
-
-
-
-  constructor(protected client: HttpRequestService) {
-    super()
-    this.model = 'classe' ;
+export class ClasseService extends Service {
+  constructor(protected client: HttpClient) {
+    super();
+    this.model = "classe";
     //this.url = environment.APP_FILE_SERVER_URL+environment.toApi?.classe;
-  this.url = environment.APP_FILE_SERVER_URL_v2+environment.toApi_v2?.gridbranchtypes;
-
+    this.url =
+      environment.APP_FILE_SERVER_URL_v2 +
+      environment.toApi_v2?.gridbranchtypes;
   }
 
   // store(object: FormGroup) {
@@ -41,8 +35,6 @@ export class ClasseService extends Service  {
   //   //console.log(this.client.post(this.url,body));
   //   return this.client.put(this.url+'/'+id,body);
   // }
-
-
 
   // get(parameters: string = ''):  Observable<any> {
   //   return this.client.get(this.url + parameters);

@@ -1,20 +1,13 @@
-
-
-
-
-    <ng-container   *ngIf="isArray; else elseBlock">
-      <ul>
-        <li m-dimentional-view class="_array"  *ngFor="let item of value" [value]="item">
-
-        </li>
-      </ul>
-
-    </ng-container>
-    <ng-template #elseBlock>
-
-        {{value}}
-
-    </ng-template>
-
-
-
+<ng-container *ngIf="isArray; else elseBlock">
+  <ul>
+    <li
+      m-dimentional-view
+      class="_array"
+      *ngFor="let item of value"
+      [value]="item"
+    ></li>
+  </ul>
+</ng-container>
+<ng-template #elseBlock>
+  {{ value }}
+</ng-template>

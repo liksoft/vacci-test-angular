@@ -1,26 +1,45 @@
-
-
-            <ng-template adHost></ng-template>
-            <form class="clr-form" *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup)">
-              <div class="clr-row">
-                <div class="clr-col-8">
-                  <app-dynamic-form-wapper [componentFormGroup]="formGroup" [form]="form"></app-dynamic-form-wapper>
-                </div>
-                <div class="clr-col-4">
-                  <div class=" form button-container" style="margin-left:20px">
-                    <button type="submit" class="btn btn-primary" [disabled]="formGroup.invalid" *ngIf="updating == false">
-                      <clr-icon shape="floppy"></clr-icon> Valider
-                    </button>
-                    <button type="button" class="btn btn-primary" (click)="onUpdate(formGroup)" [disabled]="formGroup.invalid"
-                      *ngIf="updating == true">
-                      <clr-icon shape="sync"></clr-icon> Modifier
-                    </button>
-                    <button type="button" class="btn btn-danger" (click)="onCancel()" *ngIf="updating == true">
-                      <clr-icon shape="times"></clr-icon> Annuler
-                    </button>
-                  </div>
-                </div>
-
-              </div>
-            </form>
-
+<ng-template adHost></ng-template>
+<form
+  class="clr-form"
+  *ngIf="formGroup"
+  [formGroup]="formGroup"
+  (ngSubmit)="onSubmit(formGroup)"
+>
+  <div class="clr-row">
+    <div class="clr-col-8">
+      <app-dynamic-form-wapper
+        [componentFormGroup]="formGroup"
+        [form]="form"
+      ></app-dynamic-form-wapper>
+    </div>
+    <div class="clr-col-4">
+      <div class="form button-container" style="margin-left: 20px">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="formGroup.invalid"
+          *ngIf="updating == false"
+        >
+          <clr-icon shape="floppy"></clr-icon> Valider
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="onUpdate(formGroup)"
+          [disabled]="formGroup.invalid"
+          *ngIf="updating == true"
+        >
+          <clr-icon shape="sync"></clr-icon> Modifier
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="onCancel()"
+          *ngIf="updating == true"
+        >
+          <clr-icon shape="times"></clr-icon> Annuler
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -32,6 +32,7 @@
     "@webcomponents/webcomponentsjs": "^2.0.0",
     "acorn": "^6.4.1",
     "classlist.js": "^1.1.20150312",
+    "crypto-es": "^1.2.7",
     "crypto-js": "^4.0.0",
     "dropzone": "^5.7.0",
     "email-validator": "^2.0.4",
