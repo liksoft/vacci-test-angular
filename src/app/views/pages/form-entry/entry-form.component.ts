@@ -110,11 +110,29 @@ export class EntryFormComponent extends ActionProcess  implements OnInit {
     this.buildForm();
     this.getUrlParam()
     this.builselect();
-    this.getPersonDataToUpadate();
-    this.loadComponent() ;
+    this.getPersonDataToUpdate(this.loadComponent);
 
 
   }
+
+  async getPersonDataToUpdate(loadComponent ?: ()=> void) {
+    if (this.ToUpdate != null) {
+      //  this.uiState.startAction();
+
+      let str = this.service.getModel();
+      const ns = await import("../../../models/" + str);
+
+      this.service.getOne(this.ToUpdate).subscribe((data) => {
+        let model = (this.data = this.getApiResponse(data));
+        let class_name = ns[str[0].toUpperCase() + str.substring(1)];
+        let obj = class_name.builder().fromSerialized(model);
+
+        loadComponent() ;
+        this.onEdit(obj);
+      });
+    }
+  }
+
 
   ngAfterViewInit(){
 

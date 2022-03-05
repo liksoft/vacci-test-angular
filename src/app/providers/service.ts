@@ -15,10 +15,15 @@ export abstract class Service implements ServiceInterface {
 
   constructor() {}
 
-  injection(object: object){
+  injection(object: Object): Object{
 
     return object ;
   }
+
+  getModel = (): String => {
+
+    return  this.model;
+  };
 
   getBody = async (str : string, object) => {
 
