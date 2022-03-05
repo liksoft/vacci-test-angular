@@ -134,31 +134,27 @@ export class EntryFormComponent extends ActionProcess  implements OnInit {
   }
 
 
-  ngAfterViewInit(){
-
-
-  }
-
-  loadComponent() {
+  loadComponent = () : void => {
 
 
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(EntryDetailFormComponent);
-    console.log(this.adHost) ;
     const viewContainerRef = this.adHost.viewContainerRef;
     //viewContainerRef.clear();
 
     const componentRef = viewContainerRef.createComponent(componentFactory);
-    componentRef.instance.value = this.data.id;
+    //componentRef.instance.value = this.data.id;
     console.log(this.data) ;
     if(this.data == undefined ){
       componentRef.instance.value = undefined;
     }else{
       if( this.data.hasOwnProperty('id')){
+        console.log('138',this.data.id) ;
         componentRef.instance.value = this.data.id;
       }
     }
 
   }
+
 
 
   protected builselect() {
@@ -193,8 +189,12 @@ export class EntryFormComponent extends ActionProcess  implements OnInit {
         //  this.uiState.startAction();
       }
     });
-
   }
+
+  addComponent() {
+    this.loadComponent();
+  }
+
 
 
 
