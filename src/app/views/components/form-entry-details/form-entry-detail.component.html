@@ -15,7 +15,7 @@
                       *ngIf="updating == true">
                       <clr-icon shape="sync"></clr-icon> Modifier
                     </button>
-                    <button type="button" class="btn btn-danger" (click)="onCancel()" *ngIf="updating == true">
+                    <button type="button" class="btn btn-danger" (click)="onCancel()" *ngIf="updating == true && goToPageAfterSubmit()[0] != true " >
                       <clr-icon shape="times"></clr-icon> Annuler
                     </button>
                   </div>

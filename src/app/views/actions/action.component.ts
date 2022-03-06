@@ -35,14 +35,14 @@ export abstract  class  ActionProcess  {
   protected service ;
   protected formBuilder: FormBuilder;
   protected uiState: AppUIStateProvider;
-
   protected ToUpdate : number ;
-
   protected routeDefinitions = routeDefinitions
 
   constructor() {}
 
-
+  goToPageAfterSubmit = ():  [Boolean, (data: any) => void]  => {
+    return  [false, (data: any) => {}] ;
+  };
 
   async buildForm(): Promise<void> {
 
@@ -74,10 +74,16 @@ export abstract  class  ActionProcess  {
         response => {
 
         if (response.success == true) {
+
           if(Array.isArray(this.data)){
             this.data.unshift(response.items.data);
           }
           this.uiState.endAction("enregistrement reussi", UIStateStatusCode.STATUS_OK);
+
+          const goToPage = this.goToPageAfterSubmit() ;
+          if(goToPage[0] ){
+            goToPage[1](response.items.data) ;
+          }
 
         } else {
           // console.log(response.fields_error)
@@ -92,11 +98,10 @@ export abstract  class  ActionProcess  {
                 this.uiState.endAction(v, UIStateStatusCode.ERROR);
             })
           }
-
-          //this.uiState.endAction("Un problème est survenu", UIStateStatusCode.ERROR);
         }
         this.formGroup.reset();
-        // console.log(response);
+
+
       });
     })
 
@@ -108,14 +113,20 @@ export abstract  class  ActionProcess  {
       x.pipe(takeUntil(this._destroy$))
       .subscribe(
         (response) => {
-          this.updating = false;
+
 
           if (response.success == true) {
-            //this.getData("Modification éffectuée", UIStateStatusCode.STATUS_OK);
+
             this.retrieve().subscribe((data) => {
                 this.uiState.endAction("Modification éffectuée", UIStateStatusCode.STATUS_OK);
             })
-
+            const goToPage = this.goToPageAfterSubmit() ;
+            if(goToPage[0] ){
+              //goToPage[1](response.items.data) ;
+            }else{
+              this.updating = false;
+              this.formGroup.reset();
+            }
 
           } else {
             // console.log(response.fields_error)
@@ -137,12 +148,17 @@ export abstract  class  ActionProcess  {
 
             //this.uiState.endAction("Un problème est survenu", UIStateStatusCode.ERROR);
           }
-          this.formGroup.reset();
+
         }
       );})
   }
 
-  onEdit(object) {
+  async onEdit(obj) {
+
+    let str = this.service.model
+    const ns =  await import('../../models/' + str )
+    let class_name = ns[str[0].toUpperCase() + str.substring(1)];
+    let object =  class_name.builder().fromSerialized(obj);
     this.id = object.id
     for ( let [k, v] of Object.entries(object)) {
       if (this.formGroup.controls[k]) {
@@ -154,25 +170,22 @@ export abstract  class  ActionProcess  {
         this.formGroup.controls[k].setValue(v);
       }
     }
+
+
     this.updating = true;
+
     this.formGroup.enable();
     this.showUp = true
     this.gridSize = "clr-col-9" ;
   }
 
-  async getPersonDataToUpadate() {
+  getPersonDataToUpadate() {
     if (this.ToUpdate != null) {
       //  this.uiState.startAction();
 
-      let str = this.service.model
-      const ns =  await import('../../models/' + str )
-
       this.service.getOne(this.ToUpdate).subscribe((data) => {
           let model = this.data  = this.getApiResponse(data);
-          let class_name = ns[str[0].toUpperCase() + str.substring(1)];
-          let obj =  class_name.builder().fromSerialized(model);
-
-          this.onEdit(obj);
+          this.onEdit(model);
         });
 
     }

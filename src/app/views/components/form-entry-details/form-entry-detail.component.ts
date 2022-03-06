@@ -23,6 +23,7 @@ export class EntryDetailFormComponent extends ActionProcess  implements OnInit,A
 
 
   @Input() value : any ;
+  @Input() data : any ;
 
 
 
@@ -34,7 +35,7 @@ export class EntryDetailFormComponent extends ActionProcess  implements OnInit,A
       "classes": "clr-input",
       "requiredIf": null,
       "items": [],
-      "rules": {"isRequired": false},
+      "rules": {"isRequired": true},
       "placeholder": " selectionner un article ",
       "disabled": false,
       "readonly": false,
@@ -103,8 +104,8 @@ export class EntryDetailFormComponent extends ActionProcess  implements OnInit,A
 
   ngOnInit(): void {
     this.buildForm();
-    //this.data = this.value as { [id: string]: any };
     this.builselect() ;
+    this.getData() ;
   }
 
 
@@ -131,13 +132,25 @@ export class EntryDetailFormComponent extends ActionProcess  implements OnInit,A
           })
         ).subscribe() ;
 
-      console.log(this.value)
+
+  }
+
+  protected getData() {
 
       if(this.value != undefined){
         this.formGroup.controls['entry_id'].setValue(this.value);
       }
+
+      if(this.data != undefined){
+        this.onEdit(this.data);
+      }
   }
 
+  goToPageAfterSubmit = () :  [Boolean, (data: any) => void] => {
+
+    return  [true, (entry: any) => {this.onEdit(entry);}];
+
+  };
 
 
 

@@ -99,8 +99,8 @@ export class EntryFormComponent extends ActionProcess  implements OnInit {
     protected formBuilder: FormBuilder,
     protected uiState: AppUIStateProvider,
     private route: ActivatedRoute,
-    private componentFactoryResolver: ComponentFactoryResolver
-
+    private componentFactoryResolver: ComponentFactoryResolver,
+    protected router: Router,
   ) {
     super()
   }
@@ -110,22 +110,29 @@ export class EntryFormComponent extends ActionProcess  implements OnInit {
     this.buildForm();
     this.getUrlParam()
     this.builselect();
-    this.getPersonDataToUpdate(this.loadComponent);
-
 
   }
 
-  async getPersonDataToUpdate(loadComponent ?: ()=> void) {
+  async getPersonDataToUpdate(loadComponent ?: (item? :{})=> void) {
+
     if (this.ToUpdate != null) {
       //  this.uiState.startAction();
 
       let str = this.service.getModel();
       const ns = await import("../../../models/" + str);
 
-      this.service.getOne(this.ToUpdate).subscribe((data) => {
+      this.service.getOne(this.ToUpdate,'with=entry_details').subscribe((data) => {
+
         let model = (this.data = this.getApiResponse(data));
+        console.log('125 getPersonDataToUpdate this.data :', this.data )
+
         let class_name = ns[str[0].toUpperCase() + str.substring(1)];
         let obj = class_name.builder().fromSerialized(model);
+
+
+        this.data?.entry_details.forEach((item :{} , index:number) => {
+          loadComponent(item) ;
+        });
 
         loadComponent() ;
         this.onEdit(obj);
@@ -134,7 +141,7 @@ export class EntryFormComponent extends ActionProcess  implements OnInit {
   }
 
 
-  loadComponent = () : void => {
+  public loadComponent = (item?:{}) : void => {
 
 
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(EntryDetailFormComponent);
@@ -143,13 +150,15 @@ export class EntryFormComponent extends ActionProcess  implements OnInit {
 
     const componentRef = viewContainerRef.createComponent(componentFactory);
     //componentRef.instance.value = this.data.id;
-    console.log(this.data) ;
+    console.log('148 loadComponent',this.data) ;
     if(this.data == undefined ){
       componentRef.instance.value = undefined;
     }else{
       if( this.data.hasOwnProperty('id')){
-        console.log('138',this.data.id) ;
+        console.log('153 loadComponent this.data.id',this.data.id) ;
         componentRef.instance.value = this.data.id;
+        componentRef.instance.data = item;
+
       }
     }
 
@@ -183,16 +192,46 @@ export class EntryFormComponent extends ActionProcess  implements OnInit {
   }
 
   getUrlParam() {
+
     this.route.queryParams.subscribe(params => {
+      this.formGroup.reset();
+      this.updating = false ;
+      this.clearloadComponent();
+
       if (params.id != null) {
         this.ToUpdate = params.id ;
         //  this.uiState.startAction();
+        this.getPersonDataToUpdate(this.loadComponent);
       }
     });
   }
 
+  public clearloadComponent = () : void => {
+
+    const viewContainerRef = this.adHost.viewContainerRef;
+    viewContainerRef.clear();
+
+
+  }
+
+  goToPageAfterSubmit = () :  [Boolean, (data: any) => void] => {
+
+    return  [true, (entry: any) => this.router.navigate([`${this.routeDefinitions.entriesRoute}/${this.routeDefinitions.createRoute}`],  { queryParams: { id: entry.id } })];
+
+  };
+
+
+
   addComponent() {
     this.loadComponent();
+  }
+
+  onCancel() {
+    const goToPage = this.goToPageAfterSubmit() ;
+    if(goToPage[0] ){
+      this.router.navigate([`${this.routeDefinitions.entriesRoute}/${this.routeDefinitions.createRoute}`]);
+    }
+
   }
 
 
