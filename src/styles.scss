@@ -28,23 +28,22 @@
   border-left: 3px solid var(--blue);
 }
 
-.card:hover {
-  transform: translateY(-5px) scale(1.005) translateZ(0);
-  box-shadow: 0 24px 36px rgba(0, 0, 0, 0.11), 0 24px 46px rgba(0, 0, 0, 0.11);
+hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(53, 25, 151, 0), rgba(27, 17, 160, 0.75), rgba(73, 25, 161, 0));
 }
 
-.card:hover .overlay {
-  transform: scale(4) translateZ(0);
+// HEADER
+.welcome-admin {
+  margin-top: -20px;
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-.card:hover .circle {
-  border-color: var(--grayishBlue);
-  background: var(--cyan);
-}
-
-.card:hover .circle:after {
-  background: var(--bg-color-light);
-}
+// .card:hover {
+//   transform: translateY(-5px) scale(1.005) translateZ(0);
+//   box-shadow: 0 24px 36px rgba(0, 0, 0, 0.11), 0 24px 46px rgba(0, 0, 0, 0.11);
+// }
 
 @media (max-width: 768px) {
   .dashboard-preview {

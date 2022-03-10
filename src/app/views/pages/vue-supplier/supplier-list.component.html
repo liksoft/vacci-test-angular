@@ -1,18 +1,14 @@
 <div class="clr-row welcome-admin">
-  <div class="clr-col-6 text-section">
-    <h1 class="welcome-text">Liste des Laboratoire </h1>
-    <p>We are very proud to welcome you everyday on this management dashboard of your platform. Please feel free but
-      cautiously to access all the areas of this dashboard.</p>
-
+  <div class="clr-col-12 text-section">
+    <h1 class="welcome-text">Liste des Laboratoire</h1>
+    <!-- <p>We are very proud to welcome you everyday on this management dashboard of your platform. Please feel free but
+      cautiously to access all the areas of this dashboard.</p> -->
   </div>
 </div>
+
 <div class="clr-row page-content">
   <div class=" {{ gridSize }} view-area data-area">
-
     <div class="dashboard-preview">
-
-
-
       <div class="table-container">
         <clr-datagrid>
           <clr-dg-action-bar>
@@ -29,24 +25,21 @@
             </button>
           </clr-dg-action-bar>
 
-          <clr-dg-column [clrDgField]="'label'" >
-            Libellé
-          </clr-dg-column>
-          <clr-dg-column [clrDgField]="'slug'" >
-            Slug
-          </clr-dg-column>
-          <clr-dg-column [clrDgField]="'created_at'" >
+          <clr-dg-column [clrDgField]="'label'"> Libellé </clr-dg-column>
+          <clr-dg-column [clrDgField]="'slug'"> Slug </clr-dg-column>
+          <clr-dg-column [clrDgField]="'created_at'">
             Date de création
           </clr-dg-column>
-          <clr-dg-column [clrDgField]="'updated_at'" >
+          <clr-dg-column [clrDgField]="'updated_at'">
             Dernière modification
           </clr-dg-column>
 
-
           <clr-dg-row *clrDgItems="let material of data" [clrDgItem]="material">
             <clr-dg-action-overflow>
-
-              <a routerLink="/app/material/calender/{{ material.id }}" id="btnLigne">
+              <a
+                routerLink="/app/material/calender/{{ material.id }}"
+                id="btnLigne"
+              >
                 <button class="btn btn-sm btn-link btn-block">
                   <clr-icon shape="calendar" size="20"></clr-icon>
                   Articles
@@ -66,28 +59,18 @@
                   Archiver
                 </button> -->
             </clr-dg-action-overflow>
-            <clr-dg-cell >{{ material.label }}</clr-dg-cell>
+            <clr-dg-cell>{{ material.label }}</clr-dg-cell>
 
-            <clr-dg-cell >
+            <clr-dg-cell>
               <span class="label">{{ material.slug }}</span>
             </clr-dg-cell>
 
-            <clr-dg-cell >{{
-              material.created_at | date
-            }}</clr-dg-cell>
+            <clr-dg-cell>{{ material.created_at | date }}</clr-dg-cell>
 
-            <clr-dg-cell >{{
-              material.updated_at | date
-            }}</clr-dg-cell>
-
-
-
-
+            <clr-dg-cell>{{ material.updated_at | date }}</clr-dg-cell>
           </clr-dg-row>
 
-
-
-          <clr-dg-footer >
+          <clr-dg-footer>
             <clr-dg-pagination #pagination [clrDgPageSize]="10">
               <clr-dg-page-size [clrPageSizeOptions]="[10, 20, 50, 100]">
                 Matériels par page
@@ -98,13 +81,8 @@
           </clr-dg-footer>
         </clr-datagrid>
       </div>
-
-
     </div>
   </div>
-
-
-
 </div>
 
 <div class="clr-col-sm-3 modal-h" *ngIf="showUp">
@@ -122,25 +100,44 @@
         <h3 class="modal-title">Nouvelle Intervalle</h3>
       </div>
       <div class="modal-body">
-
-
-            <form class="clr-form" *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup)">
-              <app-dynamic-form-wapper [componentFormGroup]="formGroup" [form]="form"></app-dynamic-form-wapper>
-              <div class=" form button-container">
-                <button type="submit" class="btn btn-primary" [disabled]="formGroup.invalid" *ngIf="updating == false">
-                  <clr-icon shape="floppy"></clr-icon> Valider
-                </button>
-                <button type="button" class="btn btn-primary" (click)="onUpdate(formGroup)" [disabled]="formGroup.invalid"
-                  *ngIf="updating == true">
-                  <clr-icon shape="sync"></clr-icon> Modifier
-                </button>
-                <button type="button" class="btn btn-danger" (click)="onCancel()" *ngIf="updating == true">
-                  <clr-icon shape="times"></clr-icon> Annuler
-                </button>
-              </div>
-            </form>
-
-
+        <form
+          class="clr-form"
+          *ngIf="formGroup"
+          [formGroup]="formGroup"
+          (ngSubmit)="onSubmit(formGroup)"
+        >
+          <app-dynamic-form-wapper
+            [componentFormGroup]="formGroup"
+            [form]="form"
+          ></app-dynamic-form-wapper>
+          <div class="form button-container">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="formGroup.invalid"
+              *ngIf="updating == false"
+            >
+              <clr-icon shape="floppy"></clr-icon> Valider
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="onUpdate(formGroup)"
+              [disabled]="formGroup.invalid"
+              *ngIf="updating == true"
+            >
+              <clr-icon shape="sync"></clr-icon> Modifier
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="onCancel()"
+              *ngIf="updating == true"
+            >
+              <clr-icon shape="times"></clr-icon> Annuler
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

@@ -66,13 +66,13 @@ export class PointNavComponent implements OnInit {
     this.navbarRoutesMap = [
       {
         key: 'navbar_appointments_groups_header',
-        routeIcon: 'users',
+        routeIcon: 'event',
         route: `${routeDefinitions.appointmentsRoute}/${routeDefinitions.listRoute}`,
 
       },
       {
         key: 'navbar_centers_groups_header',
-        routeIcon: 'users',
+        routeIcon: 'home',
         children: [
           {
             key: 'navbar_points_management_list',
@@ -90,14 +90,14 @@ export class PointNavComponent implements OnInit {
       },
       {
         key: 'navbar_articles_groups_header',
-        routeIcon: 'users',
+        routeIcon: 'tools',
         route: `${routeDefinitions.articlesRoute}/${routeDefinitions.listRoute}`,
 
       },
 
       {
         key: 'navbar_entries_groups_header',
-        routeIcon: 'users',
+        routeIcon: 'storage',
         route: `${routeDefinitions.entriesRoute}/${routeDefinitions.listRoute}`,
 
       },
@@ -157,7 +157,7 @@ export class PointNavComponent implements OnInit {
       },
       {
         key: 'navbar_account',
-        routeIcon: 'info-standard',
+        routeIcon: 'user',
         children: [
           {
             key: 'navbar_personal_information',

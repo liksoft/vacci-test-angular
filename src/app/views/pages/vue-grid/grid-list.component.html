@@ -1,56 +1,40 @@
 <div class="clr-row welcome-admin">
-  <div class="clr-col-6 text-section">
+  <div class="clr-col-12 text-section">
     <h1 class="welcome-text">Grid externes</h1>
-    <p>We are very proud to welcome you everyday on this management dashboard of your platform. Please feel free but
-      cautiously to access all the areas of this dashboard.</p>
-
+    <!-- <p>We are very proud to welcome you everyday on this management dashboard of your platform. Please feel free but
+      cautiously to access all the areas of this dashboard.</p> -->
   </div>
 </div>
+
 <div class="clr-row page-content">
   <div class="clr-col-12 view-area data-area">
-
     <div class="dashboard-preview">
-
       <table class="table table-striped" #tttt>
-        <tr  >
-          <th *ngFor="let o of d" >{{ o.label }}</th>
+        <tr>
+          <th *ngFor="let o of d">{{ o.label }}</th>
         </tr>
-        <ng-container *ngFor="let x of data "  >
-        <tr scope="row" *ngIf="x.hr_level_id ==  d[0].id">
+        <ng-container *ngFor="let x of data">
+          <tr scope="row" *ngIf="x.hr_level_id == d[0].id">
+            <td class="col0">
+              <p>{{ x.label }}</p>
 
-            <td class="col0"> <p>{{x.label}}</p>
-
-              <ng-container *ngIf="d.length > 1 "  >
-
-
-                <table  style="width: 100%;">
-                  <ng-container *ngFor="let p of data "   >
-
-                    <tr scope="row" *ngIf="p.hr_level_id == d[1].id && p.hr_parent_id == x.id"  >
-
-
-                            <td >.</td>
-                            <td >{{p.label}}</td>
-
-
-
-
+              <ng-container *ngIf="d.length > 1">
+                <table style="width: 100%">
+                  <ng-container *ngFor="let p of data">
+                    <tr
+                      scope="row"
+                      *ngIf="p.hr_level_id == d[1].id && p.hr_parent_id == x.id"
+                    >
+                      <td>.</td>
+                      <td>{{ p.label }}</td>
                     </tr>
                   </ng-container>
-
                 </table>
               </ng-container>
             </td>
-
-
-        </tr>
+          </tr>
         </ng-container>
       </table>
     </div>
-
-
-
   </div>
-
 </div>
-

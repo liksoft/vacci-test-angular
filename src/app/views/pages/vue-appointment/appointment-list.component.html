@@ -1,18 +1,14 @@
 <div class="clr-row welcome-admin">
-  <div class="clr-col-6 text-section">
-    <h1 class="welcome-text">Appointment list</h1>
-    <p>We are very proud to welcome you everyday on this management dashboard of your platform. Please feel free but
-      cautiously to access all the areas of this dashboard.</p>
-
+  <div class="clr-col-12 text-section">
+    <h1 class="clr-col-12 welcome-text">Appointment list</h1>
+    <!-- <p>We are very proud to welcome you everyday on this management dashboard of your platform. Please feel free but
+      cautiously to access all the areas of this dashboard.</p> -->
   </div>
 </div>
+
 <div class="clr-row page-content">
   <div class="clr-col-12 view-area data-area">
-
     <div class="dashboard-preview">
-
-
-
       <div class="table-container">
         <clr-datagrid>
           <clr-dg-action-bar>
@@ -29,27 +25,20 @@
             </button>
           </clr-dg-action-bar>
 
-          <clr-dg-column [clrDgField]="'ref'" >
-            ID
-          </clr-dg-column>
-          <clr-dg-column [clrDgField]="'point_id'" >
-            Lieu
-          </clr-dg-column>
-          <clr-dg-column [clrDgField]="'date'" >
-            Date
-          </clr-dg-column>
-          <clr-dg-column [clrDgField]="'hour'" >
-            Heure
-          </clr-dg-column>
-          <clr-dg-column [clrDgField]="'created_at'" >
+          <clr-dg-column [clrDgField]="'ref'"> ID </clr-dg-column>
+          <clr-dg-column [clrDgField]="'point_id'"> Lieu </clr-dg-column>
+          <clr-dg-column [clrDgField]="'date'"> Date </clr-dg-column>
+          <clr-dg-column [clrDgField]="'hour'"> Heure </clr-dg-column>
+          <clr-dg-column [clrDgField]="'created_at'">
             Date d'ajout
           </clr-dg-column>
 
-
           <clr-dg-row *clrDgItems="let material of data" [clrDgItem]="material">
             <clr-dg-action-overflow>
-
-              <a routerLink="/app/material/calender/{{ material.id }}" id="btnLigne">
+              <a
+                routerLink="/app/material/calender/{{ material.id }}"
+                id="btnLigne"
+              >
                 <button class="btn btn-sm btn-link btn-block">
                   <clr-icon shape="calendar" size="20"></clr-icon>
                   Articles
@@ -69,35 +58,26 @@
                   Archiver
                 </button> -->
             </clr-dg-action-overflow>
-            <clr-dg-cell >{{ material.ref }}</clr-dg-cell>
-            <clr-dg-cell  >
-              <div *ngIf="material.point ; else elseBlock"> {{ material.point?.label }} </div>
-              <ng-template #elseBlock><span class="label">A domicile.</span></ng-template>
+            <clr-dg-cell>{{ material.ref }}</clr-dg-cell>
+            <clr-dg-cell>
+              <div *ngIf="material.point; else elseBlock">
+                {{ material.point?.label }}
+              </div>
+              <ng-template #elseBlock
+                ><span class="label">A domicile.</span></ng-template
+              >
             </clr-dg-cell>
 
+            <clr-dg-cell>{{ material.date | date }}</clr-dg-cell>
 
-            <clr-dg-cell >{{
-              material.date | date
-            }}</clr-dg-cell>
-
-            <clr-dg-cell >
+            <clr-dg-cell>
               <span class="label">{{ material.hour }}</span>
             </clr-dg-cell>
 
-            <clr-dg-cell >{{
-              material.created_at | date
-            }}</clr-dg-cell>
-
-
-
-
-
-
+            <clr-dg-cell>{{ material.created_at | date }}</clr-dg-cell>
           </clr-dg-row>
 
-
-
-          <clr-dg-footer >
+          <clr-dg-footer>
             <clr-dg-pagination #pagination [clrDgPageSize]="10">
               <clr-dg-page-size [clrPageSizeOptions]="[10, 20, 50, 100]">
                 Matériels par page
@@ -108,11 +88,6 @@
           </clr-dg-footer>
         </clr-datagrid>
       </div>
-
-
     </div>
   </div>
-
-
-
 </div>
