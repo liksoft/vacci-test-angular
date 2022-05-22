@@ -1,0 +1,35 @@
+
+
+  <div class="clr-row ">
+    <ng-container *ngIf="data.children.length >= 0">
+      <ng-container *ngFor="let item of data.children">
+      
+        <div class="clr-col-3" style="border: 1px solid">
+
+          {{ item?.label }}
+      
+        </div>
+        <div class="clr-col-9"  style="border: 1px solid">
+          
+          <grid-branchs [data]="item" ></grid-branchs>
+      
+        </div>
+          
+        
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="data.children.length == 0">
+      <div class="clr-col-3" style="border: 1px solid">
+        lou
+      </div>
+      
+    </ng-container>
+  </div>
+    <ng-template #elseBlock>
+
+       
+
+    </ng-template>
+
+
+

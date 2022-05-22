@@ -1,46 +1,22 @@
 
-<!-- <ng-container *ngFor="let x of data "  >
-  <tr scope="row" *ngIf="x.hr_level_id ==  d[0].id">
+  <div class="clr-row ">
+    <div class="clr-col-3" style="border: 1px solid">
 
-      <td >{{x.label}}</td>
-      <ng-container *ngIf="d.length > 1 "  >
+      {{ data[pos].label}}
+  
+    </div>
+    <ng-container *ngIf="pos+1 < data.length">
+      <div class="clr-col-9"  style="border: 1px solid">
+        
+        <grid-column [data]="data"  [pos]="pos+1"></grid-column>
+    
+      </div>
+    </ng-container>
+  </div>
+       
 
-        <td *ngFor="let in of counter(d.length-1) ;let i = index">
-          <table  style="width: 100%;">
-            <ng-container *ngFor="let p of data "  >
-              <tr scope="row" *ngIf="p.hr_level_id == d[i+1].id && p.hr_parent_id == x.id">
+  <ng-template #elseBlock>
 
-                  <td >{{p.label}}</td>
+     
 
-
-              </tr>
-            </ng-container>
-          </table>
-        </td>
-      </ng-container>
-
-  </tr>
-</ng-container> -->
-
-<ng-container   *ngIf="x.hr_level_id ==  d[0].id">
-  <!-- <tr scope="row" > -->
-
-      <td >{{x.label}}</td>
-      <ng-container *ngIf="d.length > 1 "  >
-
-        <td *ngFor="let in of counter(d.length-1) ;let i = index">
-          <table  style="width: 100%;">
-            <ng-container *ngFor="let p of data "  >
-              <tr scope="row" *ngIf="p.hr_level_id == d[i+1].id && p.hr_parent_id == x.id">
-
-                  <td >{{p.label}}</td>
-
-
-              </tr>
-            </ng-container>
-          </table>
-        </td>
-      </ng-container>
-
-  <!-- </tr> -->
-  </ng-container>
+  </ng-template>

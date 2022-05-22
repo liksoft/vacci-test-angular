@@ -22,37 +22,4 @@ export class GridbranchService  extends Service  {
 
   }
 
-  // store(object: FormGroup) {
-
-  //   console.log("jkesus object");
-  //   let obj = grid-branch.builder().fromSerialized(object.value);
-  //   const body = grid-branch.builder().toSerialized(obj);
-
-  //   //console.log(this.client.post(this.url,body));
-  //   return this.client.post(this.url,body);
-  // }
-
-  // storeUsingID(object: FormGroup,id:number) {
-
-  //   console.log("jkesus object");
-  //   let obj = grid-branch.builder().fromSerialized(object.value);
-  //   const body = grid-branch.builder().toSerialized(obj);
-
-  //   //console.log(this.client.post(this.url,body));
-  //   return this.client.put(this.url+'/'+id,body);
-  // }
-
-
-
-  // get(parameters: string = ''):  Observable<any> {
-  //   return this.client.get(this.url + parameters);
-  // }
-
-  // getOneArchiveList(): Observable<any> {
-  //   return this.client.get(`${this.url}/getAllDeptArchive`);
-  // }
-
-  // desarchive(id: number): Observable<any> {
-  //   return this.client.put(`${this.url}/dessarchiver/${id}`, { responseType: 'text' });
-  // }
 }

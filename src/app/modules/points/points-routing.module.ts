@@ -21,6 +21,7 @@ import { EntryFormComponent } from '../../views/pages/form-entry/entry-form.comp
 
 //components
 import { GridColumnComponent } from '../../views/components/grid-column/grid-column.component';
+import { GridBranchComponent } from '../../views/components/grid-branch/grid-branch.component';
 import { MultiDimentionalViemComponent } from '../../views/components/multi-dimentional-view/m-dimentional-view.component';
 import { EntryDetailFormComponent } from '../../views/components/form-entry-details/form-entry-detail.component';
 
@@ -248,6 +249,7 @@ export const MODULE_DECLARATIONS = [
   GridColumnComponent,
   MultiDimentionalViemComponent,
   EntryDetailFormComponent,
+  GridBranchComponent,
 
   //directive
   AdDirective

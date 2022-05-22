@@ -11,10 +11,8 @@ import { map, filter, tap } from 'rxjs/operators'
 })
 export class GridListComponent implements OnInit {
 
-  public listPointRoutePath: string;
   public data: {hr_level_id:number}[] = [];
   public branchs:Observable <any>;
-  public d: {order:number}[];
 
 
   constructor(
@@ -24,12 +22,9 @@ export class GridListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.listPointRoutePath = `/${routeDefinitions.centersRoute}`;
     this.getData();
 
     console.log('index') ;
-    console.log(this.d) ;
-
   }
 
 
@@ -38,7 +33,7 @@ export class GridListComponent implements OnInit {
 
 
     let s =this.levelService.get()
-    let b = this.gridbranchService.get()
+    let b = this.gridbranchService.get('with=children')
     forkJoin(
      [s,b]
     ).subscribe(
