@@ -51,6 +51,7 @@ export const environment = {
   toApi_v2: {
     gridbranchtypes : 'grid-branch-types',
     gridbranchs: 'grid-branchs',
+    levels: 'grid-branch-types',
   },
 };
 

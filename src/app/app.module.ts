@@ -85,7 +85,10 @@ export class TranslateHandler implements MissingTranslationHandler {
         host: 'http://127.0.0.1:8000',
         loginPath: 'login',
         logoutPath: 'auth/logout',
-        usersPath: 'admin/users'
+        usersPath: 'admin/users',
+        //harry add
+        rhhost: 'https://api.sigrh.lik.tg',
+        rhloginPath: 'cnss/rh/login',
       }
     }),
     BrowserAnimationsModule,
