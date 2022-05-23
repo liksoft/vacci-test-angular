@@ -26,7 +26,7 @@ export const environment = {
   APP_SERVER_URL: 'http://127.0.0.1:8000/',
   //APP_FILE_SERVER_URL: 'https://api.vaccitest.lik.tg/api/',
   APP_FILE_SERVER_URL: 'http://127.0.0.1:8000/api/',
-  APP_FILE_SERVER_URL_v2: 'https://api.sigrh.lik.tg/cnss/rh/',
+  APP_FILE_SERVER_URL_v2: 'http://127.0.0.1:8000/rh/',
   APP_SECRET: 'V1HQkt03PoGdlxN',
   AUTH_SERVER_URL: 'http://127.0.0.1:8888/',
   FORM_SERVER_URL: 'http://127.0.0.1:8888/',

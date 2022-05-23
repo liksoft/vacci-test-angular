@@ -9,6 +9,7 @@ export class GridBranchComponent  {
 
 
   @Input() data: any;
+  @Input() max: number;
 
   constructor() { }
 

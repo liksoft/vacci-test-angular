@@ -20,18 +20,17 @@
       <div class="clr-row ">
         <ng-container *ngFor="let item of branchs">
           <ng-container *ngIf="item.hr_parent_id == null">
-            <div class="clr-col-3"  style="border: 1px solid">
+            <div class="clr-col-3"  style="border: 1px solid ; margin-left:10px ">
 
               {{ item?.label }}
           
             </div>
-            <div class="clr-col-9"  style="border: 1px solid">
+            <div class="clr-col-8"  style="">
               
-              <grid-branchs [data]="item" ></grid-branchs>
+              <grid-branchs [data]="item" [max]="data.length+2-1" ></grid-branchs>
           
             </div>
               
-            
           </ng-container>
         </ng-container>
         

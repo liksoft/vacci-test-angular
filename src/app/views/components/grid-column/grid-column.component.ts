@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class GridColumnComponent implements OnInit {
 
 
-  @Input() data: any;
+  @Input() data: any = [];
   @Input() pos: number;
 
   constructor() { }
