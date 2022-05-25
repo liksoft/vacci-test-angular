@@ -1,10 +1,10 @@
 
 [submodule "src/app/lib/core"]
 	path = src/app/lib/core
-	url = git@github.com:azandrew-sidoine/drewlabs-angular-domain.git
+	url = git@github.com:harrykouevi/anzandrew-angular-domain.git
 [submodule "src/app/lib/views/login"]
 	path = src/app/lib/views/login
-	url = git@github.com:azandrew-sidoine/drewlabs-clarity-login-component.git
+	url = git@github.com:harrykouevi/azandrew-login-module.git
 [submodule "src/app/lib/views/partials"]
 	path = src/app/lib/views/partials
 	url = git@github.com:azandrew-sidoine/elewou-clarity-partial-components.git

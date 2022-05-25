@@ -1,0 +1,9 @@
+.item-wrapper{
+    display: flex;
+  }
+
+  .item {
+    min-width: 150px;
+    border: 1px solid;
+    padding-left: 10px;
+  }

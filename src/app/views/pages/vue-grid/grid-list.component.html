@@ -9,45 +9,36 @@
 <div class="clr-row page-content">
   <div class="clr-col-12 view-area data-area">
 
+   
+
     <div class="dashboard-preview">
+      
+    
+      <div><grid-column [data]="data" [pos]="0" ></grid-column></div>
+      
+      
+      
+        <ng-container *ngFor="let item of branchs">
+          <ng-container *ngIf="item.hr_parent_id == null">
+            <div class="item-wrapper">
+              <div class="item">
 
-      <table class="table table-striped" #tttt>
-        <tr  >
-          <th *ngFor="let o of d" >{{ o.label }}</th>
-        </tr>
-        <ng-container *ngFor="let x of data "  >
-        <tr scope="row" *ngIf="x.hr_level_id ==  d[0].id">
-
-            <td class="col0"> <p>{{x.label}}</p>
-
-              <ng-container *ngIf="d.length > 1 "  >
-
-
-                <table  style="width: 100%;">
-                  <ng-container *ngFor="let p of data "   >
-
-                    <tr scope="row" *ngIf="p.hr_level_id == d[1].id && p.hr_parent_id == x.id"  >
-
-
-                            <td >.</td>
-                            <td >{{p.label}}</td>
-
-
-
-
-                    </tr>
-                  </ng-container>
-
-                </table>
-              </ng-container>
-            </td>
-
-
-        </tr>
+                {{ item?.label }}
+            
+              </div>
+              <div class="">
+                
+                <grid-branchs [data]="item" [max]="data.length -1"></grid-branchs>
+            
+              </div>
+              
+            </div>
+            
+          </ng-container>
         </ng-container>
-      </table>
+        
+      
     </div>
-
 
 
   </div>
