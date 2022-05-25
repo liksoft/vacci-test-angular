@@ -13,29 +13,31 @@
 
     <div class="dashboard-preview">
       
-       
-      <grid-column [data]="data" [pos]="0" ></grid-column>
+    
+      <div><grid-column [data]="data" [pos]="0" ></grid-column></div>
       
       
-      <div class="clr-row ">
+      
         <ng-container *ngFor="let item of branchs">
           <ng-container *ngIf="item.hr_parent_id == null">
-            <div class="clr-col-3"  style="border: 1px solid ; margin-left:10px ">
+            <div class="item-wrapper">
+              <div class="item">
 
-              {{ item?.label }}
-          
-            </div>
-            <div class="clr-col-8"  style="">
+                {{ item?.label }}
+            
+              </div>
+              <div class="">
+                
+                <grid-branchs [data]="item" [max]="data.length -1"></grid-branchs>
+            
+              </div>
               
-              <grid-branchs [data]="item" [max]="data.length+2-1" ></grid-branchs>
-          
             </div>
-              
+            
           </ng-container>
         </ng-container>
         
       
-      </div>
     </div>
 
 

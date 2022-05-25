@@ -8,6 +8,7 @@ import { map, filter, tap } from 'rxjs/operators'
 @Component({
   selector: 'grid-list',
   templateUrl: './grid-list.component.html',
+  styleUrls : ['grid-list.component.css']
 })
 export class GridListComponent implements OnInit {
 

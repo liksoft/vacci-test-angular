@@ -1,58 +1,59 @@
+<div class="item-wrapper" >
 <ng-container *ngIf="data?.length ; else elseBlock">
-  <div class="clr-row ">
-    <div class="clr-col-3" style="border: 1px solid; margin-left:10px ">
+ 
+    <div class="item item-color" >
 
       {{ data[pos].label}}
   
     </div>
     <ng-container *ngIf="data.length > pos+1 ; else elseBlock_">
-      <div class="clr-col-8"  style="">
+      <div class="" >
         
         <grid-column [data]="data"  [pos]="pos+1"></grid-column>
     
       </div>
     </ng-container>
     <ng-template #elseBlock_>
-      <div class="clr-col-8"  style="">
         
-        <div class="clr-row " *ngIf="pos >0 ">
-          <div class="clr-col-5" style="border: 1px solid; margin-left:10px ">
+        <div class="item-wrapper" *ngIf="pos >0 ">
+          <div class="item item-color" >
       
             salaire de base
         
           </div>
          
-          <div class="clr-col-5"  style="border: 1px solid; margin-left:10px ">
+          <div class="item item-color">
             
             .....
         
           </div>
           
-        </div>
     
       </div>
     </ng-template>
-  </div>
+  
        
 
 </ng-container>
 
+
 <ng-template #elseBlock>
 
-  <div class="clr-row " *ngIf="pos >0 ">
-    <div class="clr-col-3" style="border: 1px solid; margin-left:10px ">
+  <ng-container *ngIf="pos >0 ">
+    <div class="item">
 
       ...
   
     </div>
     <ng-container >
-      <div class="clr-col-8"  style="">
+      <div class="">
         
         <grid-column   [pos]="pos-1"></grid-column>
     
       </div>
     </ng-container>
-  </div>
+  </ng-container>
      
 
 </ng-template>
+</div>
