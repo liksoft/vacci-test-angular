@@ -14,13 +14,13 @@
     <div class="dashboard-preview">
       
     
-      <div><grid-column [data]="data" [pos]="0" ></grid-column></div>
+      <div style="border-left:1px solid ;"><grid-column [data]="data" [pos]="0" ></grid-column></div>
       
       
       
         <ng-container *ngFor="let item of branchs">
           <ng-container *ngIf="item.hr_parent_id == null">
-            <div class="item-wrapper">
+            <div class="item-wrapper" style="border-left:1px solid ;">
               <div class="item">
 
                 {{ item?.label }}

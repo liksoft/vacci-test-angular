@@ -87,7 +87,7 @@ export class TranslateHandler implements MissingTranslationHandler {
         logoutPath: 'auth/logout',
         usersPath: 'admin/users',
         //harry add
-        rhhost: 'https://api.sigrh.lik.tg',
+        rhhost: 'https://api.sigrh.lik.tg/cnss/rh',
         rhloginPath: 'cnss/rh/login',
       }
     }),
