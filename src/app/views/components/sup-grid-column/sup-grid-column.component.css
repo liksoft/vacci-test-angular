@@ -1,0 +1,21 @@
+.item-wrapper{
+    display: flex;
+    
+  }
+
+  .item {
+    min-width: 150px;
+    border-bottom: 1px solid;
+    border-right: 1px solid;
+    padding-left: 10px;
+
+  }
+
+  .item-color {
+
+    text-align: center;
+    font-weight: bold;
+    border-top: 1px solid;
+
+    background-color: aqua;
+  }

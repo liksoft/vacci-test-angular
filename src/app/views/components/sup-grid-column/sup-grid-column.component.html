@@ -1,0 +1,29 @@
+
+<div class="item-wrapper">
+  <div class="item" >
+    {{ data?.base_salary }}
+  </div>
+  <div class="" >
+
+    <ng-container *ngIf="data.classe_positions.length > 0 " >
+      <ng-container *ngFor="let item of data.classe_positions">
+
+        
+          
+          
+        <div class="item-wrapper">
+              <div class="item">
+
+                {{ item?.position.label }}
+              </div>
+        </div>
+      </ng-container>
+    </ng-container>
+     
+  </div>
+ 
+  <div class="item ">
+    .....
+  </div>
+</div>
+  

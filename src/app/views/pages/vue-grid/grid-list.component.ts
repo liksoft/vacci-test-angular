@@ -34,7 +34,7 @@ export class GridListComponent implements OnInit {
 
 
     let s =this.levelService.get()
-    let b = this.gridbranchService.get('with=children')
+    let b = this.gridbranchService.get('with=children,classe_positions')
     forkJoin(
      [s,b]
     ).subscribe(

@@ -3,11 +3,6 @@ import { GenericSerializaleSerializer, UndecoratedSerializer } from 'src/app/lib
 export class GridBranch
 {
   id: string;
-  permission_id: number;
-  c: number;
-  u: number;
-  r: number;
-  d: number;
 
 /**
    * @param data Instance initializer of object type
@@ -24,11 +19,7 @@ export class GridBranch
   static getJsonableProperties(): { [index: string]: keyof GridBranch } | { [index: string]: any } {
     return {
       id: 'id',
-      permission_id: 'permission_id',
-      c: 'c',
-      u: 'u',
-      r: 'r',
-      d: 'r',
+     
     } as { [index: string]: keyof GridBranch } | { [index: string]: any };
   }
 
