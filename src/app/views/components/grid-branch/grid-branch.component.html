@@ -8,10 +8,10 @@
           
           
         <div class="item-wrapper">
-              <div class="item">
+            <div class="item">
 
-                {{ item?.label }}
-              </div>
+              {{ item?.label }}
+            </div>
           
             
             <ng-container *ngIf="item.children.length > 0 ;else elseBlock_">
@@ -24,15 +24,20 @@
             </ng-container>
 
             <ng-template #elseBlock_>
-              <div class="" *ngIf="max-1 > 0 ;else elseMore_">
-                <grid-column [pos]="max-1" ></grid-column>
-              </div>
-              <ng-template #elseMore_>
+              
+                <div class="" >
+                  <ng-container *ngIf="max-1 > 0 ;else elseMore_">
+                    <grid-column [pos]="max-1" ></grid-column>
+                  </ng-container>
+                  <ng-template #elseMore_>
+                  
+                    <sup-grid-column [data]="item" ></sup-grid-column>
+  
+                    
+                  </ng-template>
+                  
+                </div>
                 
-                <sup-grid-column [data]="item" ></sup-grid-column>
-
-                
-              </ng-template>
     
             </ng-template>
             
@@ -48,9 +53,16 @@
       <div class="item" >
         ...
       </div>
-      <div class="" >       
+      <div class="" *ngIf="max-1 > 0 ;else elseMoreSupGrid">       
         <grid-column [pos]="max-1" ></grid-column>
       </div>
+    
+      <ng-template #elseMoreSupGrid>
+        
+        <sup-grid-column [data]="" ></sup-grid-column>
+
+        
+      </ng-template>
     </div>
   
   </ng-template>

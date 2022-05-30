@@ -1,29 +1,46 @@
 
 <div class="item-wrapper">
-  <div class="item" >
-    {{ data?.base_salary }}
-  </div>
-  <div class="" >
+  <ng-container *ngIf="data ; else elseBlock__">
 
-    <ng-container *ngIf="data.classe_positions.length > 0 " >
-      <ng-container *ngFor="let item of data.classe_positions">
+    <div class="item" >
+      {{ data?.base_salary }}
+    </div>
+    <div class="item" >
+      
+      <ng-container *ngIf="data?.classe_positions.length > 0 " >
+        <ng-container *ngFor="let item of data.classe_positions">
 
         
-          
-          
-        <div class="item-wrapper">
-              <div class="item">
 
-                {{ item?.position.label }}
-              </div>
-        </div>
+                  {{ item?.position.label }} <br>
+              
+        </ng-container>
       </ng-container>
-    </ng-container>
-     
-  </div>
- 
-  <div class="item ">
-    .....
-  </div>
+      
+    </div>
+  
+    <div class="item ">
+      ...
+    </div>
+  </ng-container>
+
+  <ng-template #elseBlock__>
+
+    <div class="item" >
+      ...
+    </div>
+    <div class="item" >
+
+      ...
+      
+    </div>
+  
+    <div class="item ">
+      ...
+    </div>
+       
+  
+  </ng-template>
+
 </div>
   

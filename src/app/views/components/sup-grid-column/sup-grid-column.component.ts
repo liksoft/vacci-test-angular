@@ -9,12 +9,12 @@ export class SupGridColumnComponent implements OnInit {
 
 
 
-  @Input() data: any;
+  @Input() data: any = null;
 
   constructor() { }
 
   ngOnInit(): void {
-    console.log('fffff',this.data)
+    console.log('fffff',typeof(this.data))
   }
 
 

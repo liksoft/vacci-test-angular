@@ -29,7 +29,7 @@
          
           <div class="item item-color">
             
-            .....
+            ...
         
           </div>
           
@@ -44,19 +44,28 @@
 
 <ng-template #elseBlock>
 
-  <ng-container *ngIf="pos >0 ">
+  <ng-container >
     <div class="item">
 
       ...
   
     </div>
-    <ng-container >
-      <div class="">
+    
+      <div class="" >
+        <ng-container *ngIf="pos > 1 ;else elseMoreSupGrid">
         
-        <grid-column   [pos]="pos-1"></grid-column>
+          <grid-column   [pos]="pos-1" ></grid-column>
+        </ng-container>
+        <ng-template #elseMoreSupGrid>
+            
+          <sup-grid-column [data]="" ></sup-grid-column>
+    
+          
+        </ng-template>
     
       </div>
-    </ng-container>
+
+   
   </ng-container>
      
 
